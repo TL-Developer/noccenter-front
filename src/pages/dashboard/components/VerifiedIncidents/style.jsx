@@ -30,10 +30,10 @@ export const ChartInfoStyled = styled.div`
   text-align: center;
 
   div:first-child {
-    padding-left: 90px;
+    padding-left: 20px;
   }
 
   div:last-child {
-    padding-right: 90px;
+    padding-right: 20px;
   }
 `;

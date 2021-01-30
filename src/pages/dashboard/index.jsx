@@ -7,19 +7,19 @@ import VerifiedIncidents from './components/VerifiedIncidents';
 
 const Dashboard = () => (
   <Grid container spacing={3}>
-    <Grid item xs={6}>
+    <Grid item xs={7}>
       <MacroViewIncidents />
     </Grid>
 
-    <Grid item xs={6}>
+    <Grid item xs={5}>
       <Incidents />
     </Grid>
 
-    <Grid item xs={6}>
+    <Grid item xs={7}>
       <Automation />
     </Grid>
 
-    <Grid item xs={6}>
+    <Grid item xs={5}>
       <VerifiedIncidents />
     </Grid>
   </Grid>

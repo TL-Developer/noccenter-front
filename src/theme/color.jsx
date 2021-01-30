@@ -28,7 +28,7 @@ export default {
   },
   dark: {
     "brand":{
-      "1":"#f1edfb",
+      "1":"rgba(116, 60, 255, 0.08);",
       "2":"#743CFF",
       "pure":"#5323CA"
     },

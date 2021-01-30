@@ -5,10 +5,11 @@ import {
 } from './style';
 
 const FeatherIcon = ({
+  color,
   icon,
   size,
 }) => (
-  <FeatherIconStyled icon={icon} size={size} />
+  <FeatherIconStyled color={color} icon={icon} size={size} />
 );
 
 export default FeatherIcon;

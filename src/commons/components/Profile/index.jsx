@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import avatarImg from '../../../assets/liminha.jpg';
 import FeatherIcon from '../FeatherIcon';
 
@@ -29,9 +30,11 @@ const Profile = () => (
           <p>Tiago Lima</p>
         </li> 
         <li>
-          <AvatarStyled>
-            <img src={avatarImg} alt="Liminha"/>
-          </AvatarStyled>
+          <Link to="/">
+            <AvatarStyled>
+              <img src={avatarImg} alt="Liminha"/>
+            </AvatarStyled>
+          </Link> 
         </li>
       </ul>
     </UserStyled>

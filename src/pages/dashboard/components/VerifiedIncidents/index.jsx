@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import Card from '../../../commons/components/Card';
-import InfoNumber from '../../../commons/components/InfoNumber';
+import Card from '@commons/components/Card';
+import InfoNumber from '@commons/components/InfoNumber';
 
 import {
   ChartStyled,
@@ -46,7 +46,6 @@ const VerifiedIncidents = () => {
       ctx.lineCap = lineCap;
       ctx.stroke();
     })();
-
   }, []);
   
   return (
@@ -57,7 +56,7 @@ const VerifiedIncidents = () => {
 
       <ChartStyled>
         <canvas 
-          width="205"
+          width="250"
           className="App-canvas"
           ref={$canvas}
         /> 

@@ -1,6 +1,6 @@
 import React from 'react';
-import Card from '../../../commons/components/Card';
-import FeatherIcon from '../../../commons/components/FeatherIcon';
+import Card from '@commons/components/Card';
+import FeatherIcon from '@commons/components/FeatherIcon';
 
 import {
   TitleStyled,

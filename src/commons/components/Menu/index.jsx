@@ -24,8 +24,9 @@ const Menu = ({
 
   const activeItemMenu = () => {
     const { pathname } = window.location;
+    const regexPathName = /.*(?=\/)/g;
     const $listMenuElement = $listMenu.current;
-    const $linkItemCurrent = $listMenuElement.querySelector(`[href="${pathname}"]`); 
+    const $linkItemCurrent = pathname.match(/\//g).length > 1 ? $listMenuElement.querySelector(`[href="${pathname.match(regexPathName)[0]}"]`) : $listMenuElement.querySelector(`[href="${pathname}"]`); 
     const $itemMenuCurrent = $linkItemCurrent.querySelector('li'); 
 
     $itemMenuCurrent.classList.add('active');
@@ -70,6 +71,15 @@ const Menu = ({
                 <FeatherIcon icon="cpu" />
               </IconStyled>
               <LabelStyled>Automação</LabelStyled>
+            </ListMenuItemStyled>
+          </Link>
+
+          <Link to="/escalation">
+            <ListMenuItemStyled>
+              <IconStyled>
+                <FeatherIcon icon="users" />
+              </IconStyled>
+              <LabelStyled>Escalation</LabelStyled>
             </ListMenuItemStyled>
           </Link>
         </ListMenuStyled>

@@ -1,4 +1,25 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
+
+const headShake = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  6.5% {
+    transform: translateX(-6px) rotateY(-9deg);
+  }
+  18.5% {
+    transform: translateX(5px) rotateY(7deg);
+  }
+  31.5% {
+    transform: translateX(-3px) rotateY(-5deg);
+  }
+  43.5% {
+    transform: translateX(2px) rotateY(3deg);
+  }
+  50% {
+    transform: translateX(0);
+  }
+`;
 
 export const GlobalStyled = createGlobalStyle`
   html {
@@ -33,6 +54,22 @@ export const GlobalStyled = createGlobalStyle`
 
   canvas, div, header, section, footer, ul, li, h1, h2, h3, h4, h5, h6, p, span, img {
     /* outline: 1px solid red; */
+  }
+
+  .animate__animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  
+  .animate__headShake {
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-name: ${headShake};
+    animation-name: ${headShake};
   }
 `;
 

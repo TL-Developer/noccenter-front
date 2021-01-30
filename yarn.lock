@@ -9693,6 +9693,18 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
+react-app-rewire-alias@^0.2.0:
+  version "0.2.0"
+  resolved "https://xpinvestimentos.pkgs.visualstudio.com/_packaging/PackagesXP/npm/registry/react-app-rewire-alias/-/react-app-rewire-alias-0.2.0.tgz#f18e35f9d1520772408068d29c58aeb35e60fe16"
+  integrity sha1-8Y41+dFSB3JAgGjSnFius15g/hY=
+
+react-app-rewired@^2.1.8:
+  version "2.1.8"
+  resolved "https://xpinvestimentos.pkgs.visualstudio.com/_packaging/PackagesXP/npm/registry/react-app-rewired/-/react-app-rewired-2.1.8.tgz#e192f93b98daf96889418d33d3e86cf863812b56"
+  integrity sha1-4ZL5O5ja+WiJQY0z0+hs+GOBK1Y=
+  dependencies:
+    semver "^5.6.0"
+
 react-dev-utils@^11.0.1:
   version "11.0.1"
   resolved "https://xpinvestimentos.pkgs.visualstudio.com/_packaging/PackagesXP/npm/registry/react-dev-utils/-/react-dev-utils-11.0.1.tgz#30106c2055acfd6b047d2dc478a85c356e66fe45"

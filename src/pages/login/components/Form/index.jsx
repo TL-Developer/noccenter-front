@@ -2,7 +2,7 @@ import React from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom';
-import Logo from '../../../commons/components/Logo';
+import Logo from '@commons/components/Logo';
 
 import {
   FormStyled,
