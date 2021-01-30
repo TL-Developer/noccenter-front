@@ -4,7 +4,7 @@ import BigNumber from '@commons/components/BigNumber';
 
 const Incidents = () => (
   <Grid container spacing={2}>
-    <Grid noGutters item xs={6}>
+    <Grid item xs={6}>
       <BigNumber
         title="P1"
         subtitle="Incidentes"
