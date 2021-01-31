@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import Button from '@commons/components/Button';
 import TextField from '@material-ui/core/TextField';
 
@@ -16,12 +15,6 @@ export const TableStyled = styled.div`
 export const TableCellStyled = styled(TableCell)`
   && {
     border-bottom: none;
-  }
-`;
-
-export const TableContainerStyled = styled(TableContainer)`
-  && {
-    box-shadow: none;
   }
 `;
 

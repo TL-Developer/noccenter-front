@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import Button from '@commons/components/Button';
 
 export const CreateEscalationStyled = styled.div`
