@@ -1,0 +1,19 @@
+export default {
+  "style":{
+    "default":"solid"
+  },
+  "width":{
+    "default":"0px",
+    "thin":"1px",
+    "thick":"2px",
+    "thicker":"4px"
+  },
+  "radius":{
+    "default":"0px",
+    "small":"4px",
+    "medium":"8px",
+    "large":"16px",
+    "pill":"500px",
+    "circular":"100%"
+  }
+};
