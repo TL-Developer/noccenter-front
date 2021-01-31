@@ -21,6 +21,7 @@ import {
 } from './style';
 
 const CreateEscalation = ({
+  isEditable,
   saveEscalation,
   onChange,
   escalations,
@@ -33,11 +34,13 @@ const CreateEscalation = ({
     <CreateEscalationStyled>
       <FormStyled>
         <TextFieldStyled
+          disabled={isEditable}
           value={squad}
           onChange={(e) => setSquad(e.target.value)} label="Nome da Equipe, Squad" variant="outlined"
         />
         
         <TextFieldStyled
+          disabled={isEditable}
           value={techLead} 
           onChange={(e) => setTechLead(e.target.value)} label="Tech Lead" variant="outlined"
         />
@@ -63,12 +66,14 @@ const CreateEscalation = ({
                   </TableCellStyled>
                   <TableCellStyled component="th" scope="row">
                     <TextFieldTdStyled
+                      disabled={isEditable}
                       onChange={(e) => onChange(e, escalation, index, 'job')}
                       value={escalation.job}
                     />
                   </TableCellStyled>
                   <TableCellStyled component="th" scope="row">
                     <TextFieldTdStyled
+                      disabled={isEditable}
                       onChange={(e) => onChange(e, escalation, index, 'name')}
                       value={escalation.name}
                     />
@@ -80,6 +85,7 @@ const CreateEscalation = ({
                       </Grid>
                       <Grid item>
                         <TextFieldTdStyled
+                          disabled={isEditable}
                           onChange={(e) => onChange(e, escalation, index, 'contact')}
                           value={escalation.contact}
                         />
@@ -88,6 +94,7 @@ const CreateEscalation = ({
                   </TableCellStyled>
                   <TableCellStyled component="th" scope="row">
                     <TextFieldTdStyled
+                      disabled={isEditable}
                       onChange={(e) => onChange(e, escalation, index, 'email')}
                       value={escalation.email}
                     />
@@ -98,10 +105,12 @@ const CreateEscalation = ({
           </Table>
         </TableContainerStyled>
       </TableStyled>
-
-      <FooterStyled>
-        <ButtonStyled onClick={() => saveEscalation()}>Criar grupo de escalation</ButtonStyled>
-      </FooterStyled>
+      
+      {!isEditable && (
+        <FooterStyled>
+          <ButtonStyled onClick={() => saveEscalation()}>Criar grupo de escalation</ButtonStyled>
+        </FooterStyled>
+      )}
     </CreateEscalationStyled>
   );
 };

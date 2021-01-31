@@ -31,43 +31,33 @@ const incidentesData = [
 ];
 
 const Incidents = () => {
-  const [incidents, setIncidents] = useState(incidentesData);
+  const [incidents, setIncidents] = useState([]);
 
   const serialize = (data) => {
-    debugger
     const { fields } = data;
-    const newDataIncidents = data.map((incident) => {
-      // const result = {
-      //   "id":data.EVENT_ID,
-      //   "time": data.EVENT_TIME,
-      //   "date": data.EVENT_DATE,
-      //   "host": data.HOST_HOST1,
-      //   "problem": data.ALERT_SUBJECT,
-      //   "severity": data.TRIGGER_SEVERITY,
-      //   "duration": data.EVENT_AGE,
-      //   "verified": false,
-      //   "notification": false,
-      //   "description": { "label": data.EVENT_TAGS }
-      // };
-      return {
-        time: incident.EVENT_TIME,
-        host: incident.HOST_HOST1,
-        problem: incident.ALERT_SUBJECT,
-        severity: incident.TRIGGER_SEVERITY,
-        duration: incident.EVENT_AGE,
-        verified: 'Nao',
-        notification: 2,
-        description: { label: incident.EVENT_TAGS },
-      };
-    });
+
+    return {
+      time: fields.time,
+      host: fields.host,
+      problem: fields.problem,
+      severity: fields.severity,
+      duration: fields.EVENT_AGE,
+      verified: fields.verified ? 'Sim' : 'Não',
+      notification: 2,
+      description: { label: fields.description },
+    }
   };
   
   useEffect(() => {
     if (window.socket) {
       window.socket.on("incidents_messages", data => {
         debugger
-        // serialize(data);
-        console.log(data);
+        const incidentSerialized = serialize(JSON.parse(data));
+
+        setIncidents([
+          ...incidents,
+          incidentSerialized,
+        ]);
       });
     }
   }, []);

@@ -9,9 +9,7 @@ import {
   CardStyled,
 } from './style';
 
-const Escalation = ({
-  setLoading,
-}) => (
+const Escalation = () => (
   <Grid container>
     <Grid item xs={12}>
       <CardStyled>
@@ -20,7 +18,8 @@ const Escalation = ({
               <Button>Criar novo grupo</Button>
             </Link>
           </ButtonStyled>
-        <EscalationTable setLoading={setLoading} />    
+
+        <EscalationTable />    
       </CardStyled>
     </Grid>
   </Grid>

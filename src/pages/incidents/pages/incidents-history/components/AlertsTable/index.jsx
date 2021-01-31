@@ -68,16 +68,36 @@ const Row = ({ alert }) => (
 
 const AlertsTable = () => {
   const [alerts, setAlerts] = useState([]); 
+  const timeoutSnackbar = 5000;
+
   
   const getAlerts = async () => {
+    if (window.setState && window.setState.setLoading) {
+      window.setState.setLoading(true);
+    }
+    
     try {
       const alertsData = await incidents.getAlerts();
+
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
       
       setAlerts(alertsData);
     } catch (error) {
       console.log(error);
-    }
+      window.setState.setOpenSnackbar(true);
 
+      window.setState.setSeveritySnackbar('error');
+      window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
+    }
   };
 
   useEffect(() => {

@@ -15,6 +15,7 @@ import AutomationNew from '@pages/automation/pages/automation-new';
 import Escalation from '@pages/escalation';
 import EscalationNew from '@pages/escalation/pages/escalation-new';
 import EscalationUpdate from '@pages/escalation/pages/escalation-update';
+import EscalationView from '@pages/escalation/pages/escalation-view';
 import IncidentsHistory from '@pages/incidents/pages/incidents-history';
 
 const RouteStyled = styled.div`
@@ -42,6 +43,7 @@ export const routes = [
   { label: '', path: '/escalation', Component: Escalation },
   { label: '', path: '/escalation/new', Component: EscalationNew },
   { label: '', path: '/escalation/:escalationId/update', Component: EscalationUpdate },
+  { label: '', path: '/escalation/:escalationId/view', Component: EscalationView },
   { label: '', path: '/incidents/history', Component: IncidentsHistory },
 ];
 
@@ -52,7 +54,6 @@ export default function Routes({
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [messageSnackbar, setMessageSnackbar] = useState('');
   const [severitySnackbar, setSeveritySnackbar] = useState('success');
-  const timeoutSnackbar = 5000;
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
@@ -61,6 +62,9 @@ export default function Routes({
   useEffect(() => {
     window.setState = {
       setLoading,
+      setOpenSnackbar,
+      setMessageSnackbar,
+      setSeveritySnackbar,
     };
   }, []);
 
@@ -90,7 +94,7 @@ export default function Routes({
             <Fade in timeout={300}>
               <ContainerStyled margin={path !== '/'}>
                 {path !== '/' && <Profile handleTheme={(e) => handleTheme(e)} />}
-                <Component setLoading={setLoading} />
+                <Component />
               </ContainerStyled>
             </Fade>
           </RouteStyled>

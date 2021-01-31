@@ -78,14 +78,34 @@ const Row = ({ automation }) => (
 
 const TableIncidents = () => {
   const [automations, setAutomations] = useState([]);
+  const timeoutSnackbar = 5000;
 
   const getAutomations = async () => {
+    if (window.setState && window.setState.setLoading) {
+      window.setState.setLoading(true);
+    }
+    
     try {
       const automationsData = await model.get();
+      
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
 
       setAutomations(automationsData);
     } catch (error) {
       console.log(error);
+      window.setState.setOpenSnackbar(true);
+
+      window.setState.setSeveritySnackbar('error');
+      window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
     } 
   };
 

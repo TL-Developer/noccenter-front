@@ -34,10 +34,12 @@ const Row = ({ escalatioId, escalation }) => (
       <TableCellStyled>{escalation.techLead}</TableCellStyled>
       <TableCellStyled>
         <ActionStyled>
-          <IconStyled aria-label="expand row" size="small">
-            <FeatherIcon icon="users" />
-            <p>Visualizar</p>
-          </IconStyled>
+          <Link to={`/escalation/${escalatioId}/view`}>
+            <IconStyled aria-label="expand row" size="small">
+              <FeatherIcon icon="users" />
+              <p>Visualizar</p>
+            </IconStyled>
+          </Link>
 
           <Link to={`/escalation/${escalatioId}/update`}>
             <IconStyled aria-label="expand row" size="small">
@@ -51,22 +53,36 @@ const Row = ({ escalatioId, escalation }) => (
   </>
 );
 
-const TableEscalation = ({
-  setLoading,
-}) => {
+const TableEscalation = () => {
   const [escalations, setEscalations] = useState([]);
+  const timeoutSnackbar = 5000;
 
   const getEscalations = async () => {
-    setLoading(true);
+    if (window.setState && window.setState.setLoading) {
+      window.setState.setLoading(true);
+    }
 
     try {
       const escalationsData = await escalation.get();
+      
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
 
-      setLoading(false);
       setEscalations(escalationsData);
     } catch (error) {
-      setLoading(false);
       console.log(error);
+      window.setState.setOpenSnackbar(true);
+
+      window.setState.setSeveritySnackbar('error');
+      window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
     } 
   };
 

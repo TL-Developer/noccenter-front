@@ -38,7 +38,7 @@ const escalationsData = [
   }
 ];
 
-const EscalationUpdate = () => {
+const EscalationView = () => {
   const [escalations, setEscalations] = useState(escalationsData);
   const [squad, setSquad] = useState(escalationsData[0].squad);
   const [techLead, setTechLead] = useState(escalationsData[0].techLead);
@@ -75,7 +75,7 @@ const EscalationUpdate = () => {
 
       window.setState.setSeveritySnackbar('error');
       window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
-
+      
       if (window.setState && window.setState.setLoading) {
         window.setState.setLoading(false);
       }
@@ -102,7 +102,7 @@ const EscalationUpdate = () => {
     <Grid container>
       <CardStyled>
         <TitleStyled>
-          <p>Editar escalation</p>
+          <p>Visualizar escalation</p>
         </TitleStyled>
       
         <CreateEscalation
@@ -114,10 +114,11 @@ const EscalationUpdate = () => {
           setEscalations={setEscalations}
           setSquad={setSquad}
           setTechLead={setTechLead}
+          isEditable={true}
         />
       </CardStyled>
     </Grid>
   );
 }
 
-export default EscalationUpdate;
+export default EscalationView;
