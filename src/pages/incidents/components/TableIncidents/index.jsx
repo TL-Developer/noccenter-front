@@ -78,7 +78,7 @@ const Row = ({ row, newIncident }) => {
                 </section>
                 <footer>
                   <IconStyled>
-                    <Link to="/incidents/history">
+                    <Link to={`/incidents/${row.id}/history`}>
                       <BadgeHistoryStyled color="primary" badgeContent={2}>
                         <FeatherIcon icon="inbox" />
                         <p>Histórico de notificações</p>

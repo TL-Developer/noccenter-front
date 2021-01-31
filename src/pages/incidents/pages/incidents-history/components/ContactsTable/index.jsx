@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
 import Modal from '@commons/components/Modal';
 import TableContainer from '@commons/components/TableContainer';
+import * as incidents from '@pages/incidents/services/incidents';
 
 import {
   ContactsTableStyled,
@@ -38,18 +39,18 @@ const Row = ({ contact }) => {
 
 const ContactsTable = ({
   contacts,
+  createContact,
 }) => {
   const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [user, setUser] = useState('Tiago Lima');
+  const [message, setMessage] = useState('');
 
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
-  };
-
-  const createContact = () => {
     setOpen(false);
   };
 
@@ -98,13 +99,16 @@ const ContactsTable = ({
                 <TableBody>
                   <TableRow>
                     <TableCellStyled component="th" scope="row">
-                      <p>10/04/2021 16:04</p>
+                      <p>{new Date().toISOString().split('T')[0]}</p>
                     </TableCellStyled>
                     <TableCellStyled component="th" scope="row">
-                      <p>Felipe Vieira</p>
+                      <p>Tiago Lima</p>
                     </TableCellStyled>
                     <TableCellStyled component="th" scope="row">
-                      <TextFieldTdStyled />
+                      <TextFieldTdStyled
+                        onChange={(e) => setMessage(e.target.value)}
+                        value={message}
+                      />
                     </TableCellStyled>
                   </TableRow>
                 </TableBody>
@@ -112,7 +116,7 @@ const ContactsTable = ({
             </TableContainer>
           </TableStyled>
 
-          <ButtonModalStyled onClick={createContact} width="150px">
+          <ButtonModalStyled onClick={() => createContact(date, user, message, setOpen)} width="150px">
             Adicionar
           </ButtonModalStyled>
         </ContainerStyled>

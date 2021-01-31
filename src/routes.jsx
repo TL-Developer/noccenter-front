@@ -44,7 +44,7 @@ export const routes = [
   { label: '', path: '/escalation/new', Component: EscalationNew },
   { label: '', path: '/escalation/:escalationId/update', Component: EscalationUpdate },
   { label: '', path: '/escalation/:escalationId/view', Component: EscalationView },
-  { label: '', path: '/incidents/history', Component: IncidentsHistory },
+  { label: '', path: '/incidents/:incidentId/history', Component: IncidentsHistory },
 ];
 
 export default function Routes({

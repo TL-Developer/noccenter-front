@@ -29,7 +29,7 @@ const IncidentsHistory = () => {
     }
     
     try {
-      const incidentsData = await incidents.get();
+      const incidentsData = await incidents.getIncidentsHistory();
 
       if (window.setState && window.setState.setLoading) {
         window.setState.setLoading(false);
@@ -43,6 +43,46 @@ const IncidentsHistory = () => {
 
       window.setState.setSeveritySnackbar('error');
       window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
+    }
+  };
+
+  const createContact = async (date, user, message, setOpenModal) => {
+    const body = {
+      date,
+      user,
+      message,
+    };
+
+    if (window.setState && window.setState.setLoading) {
+      window.setState.setLoading(true);
+    }
+
+    try {
+      setOpenModal(false);
+
+      await incidents.postIncidentsHistory(body);
+
+      window.setState.setLoading(false);
+
+      window.setState.setOpenSnackbar(true);
+      window.setState.setSeveritySnackbar('success');
+      window.setState.setMessageSnackbar('Salvo com sucesso!');
+      getIncidents();
+    } catch (error) {
+      setOpenModal(false);
+      console.log(error);
+      
+      window.setState.setOpenSnackbar(true);
+      window.setState.setSeveritySnackbar('error');
+      window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+
       if (window.setState && window.setState.setLoading) {
         window.setState.setLoading(false);
       }
@@ -76,7 +116,7 @@ const IncidentsHistory = () => {
         )}
         
         {(menuActive && menuActive === 'contatos') && (
-          <ContactsTable contacts={contacts} />
+          <ContactsTable createContact={(date, user, message, setOpenModal) => createContact(date, user, message, setOpenModal)} contacts={contacts} />
         )}
       </CardStyled>
     </Grid>
