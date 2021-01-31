@@ -67,3 +67,9 @@ export const IconStyled = styled.div`
     font-weight: ${({ theme }) => theme.font.weight.medium};
   }
 `;
+
+export const NoContentStyled = styled.div`
+  padding: ${({ theme }) => theme.spacing.xxs};
+  text-align: center;
+  width: 100%;
+`;

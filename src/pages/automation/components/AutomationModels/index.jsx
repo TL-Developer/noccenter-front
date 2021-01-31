@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import FeatherIcon from '@commons/components/FeatherIcon';
 import Bullet from '@commons/components/Bullet';
+import * as model from '@pages/automation/services/model';
  
 import {
   TableCellStyled,
@@ -19,83 +20,79 @@ import {
   TextSeverityStyled,
 } from './style';
 
-function createData(model, description, severity) {
-  return {
-    model,
-    description,
-    severity,
-  };
-}
+const Row = ({ automation }) => (
+  <>
+    <TableRow>
+      <TableCellStyled padding="checkbox">
+        <Checkbox
+          color="primary"
+          // checked={isItemSelected}
+          // inputProps={{ 'aria-labelledby': labelId }}
+        />
+      </TableCellStyled>
+      <TableCellStyled component="th" scope="row">
+        {automation.model}
+      </TableCellStyled>
+      <TableCellStyled>{automation.description}</TableCellStyled>
+      <TableCellStyled>
+        {automation.priority !== 'P0' && (
+          <SeverityStyled>
+            <Bullet color={() => {
+              switch (automation.priority) {
+                case 'P1':
+                  return '#E20000'
+                case 'P2':
+                  return '#E28800'
+                case 'P3':
+                  return '#00C7E2'
+                case 'P4':
+                  return '#9A00E2'
+              }
+            }} />
+            
+            <TextSeverityStyled>
+              {automation.priority}
+            </TextSeverityStyled>
+          </SeverityStyled>
+        )}
+        {automation.priority === 'P0' && (
+          'Nenhuma'
+        )}
+      </TableCellStyled>
+      <TableCellStyled>
+        <ActionStyled>
+          <IconStyled aria-label="expand row" size="small">
+            <FeatherIcon icon="edit-3" />
+            <p>Editar</p>
+          </IconStyled>
 
-const rows = [
-  createData('Jornada para Prioridade 1', 'Appdynamics_PRD_RICO_BACK_END', 1),
-  createData('Jornada para Prioridade 1', 'Appdynamics_PRD_RICO_BACK_END', 2),
-  createData('Jornada para Prioridade 1', 'Appdynamics_PRD_RICO_BACK_END', 3),
-  createData('Jornada para Prioridade 1', 'Appdynamics_PRD_RICO_BACK_END', 4),
-  createData('Jornada para Prioridade 1', 'Appdynamics_PRD_RICO_BACK_END', 0),
-];
-
-const Row = (props) => {
-  const { row } = props;
-
-  return (
-    <>
-      <TableRow>
-        <TableCellStyled padding="checkbox">
-          <Checkbox
-            color="primary"
-            // checked={isItemSelected}
-            // inputProps={{ 'aria-labelledby': labelId }}
-          />
-        </TableCellStyled>
-        <TableCellStyled component="th" scope="row">
-          {row.model}
-        </TableCellStyled>
-        <TableCellStyled>{row.description}</TableCellStyled>
-        <TableCellStyled>
-          {row.severity !== 0 && (
-            <SeverityStyled>
-              <Bullet color={() => {
-                switch (row.severity) {
-                  case 1:
-                    return '#E20000'
-                  case 2:
-                    return '#E28800'
-                  case 3:
-                    return '#00C7E2'
-                  case 4:
-                    return '#9A00E2'
-                }
-              }} />
-              
-              <TextSeverityStyled>
-                P{row.severity}
-              </TextSeverityStyled>
-            </SeverityStyled>
-          )}
-          {row.severity === 0 && (
-            'Nenhuma'
-          )}
-        </TableCellStyled>
-        <TableCellStyled>
-          <ActionStyled>
-            <IconStyled aria-label="expand row" size="small">
-              <FeatherIcon icon="edit-3" />
-              <p>Editar</p>
-            </IconStyled>
-
-            <IconStyled aria-label="expand row" size="small">
-              <FeatherIcon icon="trash-2" />
-              <p>Excluir</p>
-            </IconStyled>
-          </ActionStyled>
-        </TableCellStyled>
-      </TableRow>
-    </>
-  );
-};
+          <IconStyled aria-label="expand row" size="small">
+            <FeatherIcon icon="trash-2" />
+            <p>Excluir</p>
+          </IconStyled>
+        </ActionStyled>
+      </TableCellStyled>
+    </TableRow>
+  </>
+);
 
 const TableIncidents = () => {
+  const [automations, setAutomations] = useState([]);
+
+  const getAutomations = async () => {
+    try {
+      const automationsData = await model.get();
+
+      setAutomations(automationsData);
+    } catch (error) {
+      console.log(error);
+    } 
+  };
+
+  useEffect(() => {
+    getAutomations();
+  }, [])
+
   return (
     <>
       <InfoStyled>
@@ -123,8 +120,8 @@ const TableIncidents = () => {
             </TableRow>
           </TableHead> 
           <TableBody>
-            {rows.map((row) => (
-              <Row key={row.name} row={row} />
+            {automations.map((automation) => (
+              <Row key={automation.model} automation={automation} />
             ))}
           </TableBody>
         </Table>

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import avatarImg from '../../../assets/liminha.jpg';
 import FeatherIcon from '../FeatherIcon';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import {
   ProfileStyled,
@@ -10,8 +12,9 @@ import {
   AvatarStyled,
 } from './style';
 
-
-const Profile = () => (
+const Profile = ({
+  handleTheme,
+}) => (
   <ProfileStyled>
     <WelcomeBackStyled>
       <h3>Olá Tiago, </h3>
@@ -27,14 +30,23 @@ const Profile = () => (
           <FeatherIcon icon="bell" />
         </li>
         <li>
-          <p>Tiago Lima</p>
+          <Select
+            label="teste"
+            value={1}
+            style={{ padding: '0 10px' }}
+          >
+            <MenuItem value={1}>
+              <p>Tiago Lima</p>
+            </MenuItem>
+            <Link to="/"  onChange={() => handleTheme(false)}>
+              <MenuItem>Logout</MenuItem>
+            </Link>
+          </Select>
         </li> 
         <li>
-          <Link to="/">
-            <AvatarStyled>
-              <img src={avatarImg} alt="Liminha"/>
-            </AvatarStyled>
-          </Link> 
+          <AvatarStyled>
+            <img src={avatarImg} alt="Liminha"/>
+          </AvatarStyled>
         </li>
       </ul>
     </UserStyled>

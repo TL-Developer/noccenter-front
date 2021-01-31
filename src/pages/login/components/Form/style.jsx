@@ -9,8 +9,14 @@ export const ContainerStyled = styled.div`
   width: fit-content;
 `;
 
+export const LogoStyled = styled.div`
+  margin: 0 auto;
+`;
+
 export const HeaderStyled = styled.header`
   margin: ${({ theme }) => theme.spacing.xxl} 0 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const TitleStyled = styled.h6`

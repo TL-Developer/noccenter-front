@@ -15,12 +15,15 @@ import {
   SectionStyled,
   FooterStyled,
   ButtonStyled,
+  LogoStyled,
 } from './style';
 
 const Form = () => (
   <ContainerStyled>
     <HeaderStyled>
-      <Logo />
+      <LogoStyled>
+        <Logo isMobile={true} width="xxxl" />
+      </LogoStyled>
 
       <TitleStyled>
         Bem vindo ao NOC Center

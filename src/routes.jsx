@@ -1,17 +1,21 @@
-import React, { lazy, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import Profile from '@commons/components/Profile';
 import Menu from '@commons/components/Menu';
+import Fade from '@material-ui/core/Fade';
+import Loading from '@commons/components/Loading';
+import Snackbar from '@commons/components/Snackbar';
 
-const Login = lazy(() => import('@pages/login'));
-const Dashboard = lazy(() => import('@pages/dashboard'));
-const Incidents = lazy(() => import('@pages/incidents'));
-const Automation = lazy(() => import('@pages/automation'));
-const AutomationNew = lazy(() => import('@pages/automation-new'));
-const Escalation = lazy(() => import('@pages/escalation'));
-const EscalationNew = lazy(() => import('@pages/escalation-new'));
-const IncidentsHistory = lazy(() => import('@pages/incidents-history'));
+import Login from '@pages/login';
+import Dashboard from '@pages/dashboard';
+import Incidents from '@pages/incidents';
+import Automation from '@pages/automation';
+import AutomationNew from '@pages/automation/pages/automation-new';
+import Escalation from '@pages/escalation';
+import EscalationNew from '@pages/escalation/pages/escalation-new';
+import EscalationUpdate from '@pages/escalation/pages/escalation-update';
+import IncidentsHistory from '@pages/incidents/pages/incidents-history';
 
 const RouteStyled = styled.div`
   display: flex;
@@ -37,36 +41,61 @@ export const routes = [
   { label: '', path: '/automation/new', Component: AutomationNew },
   { label: '', path: '/escalation', Component: Escalation },
   { label: '', path: '/escalation/new', Component: EscalationNew },
+  { label: '', path: '/escalation/:escalationId/update', Component: EscalationUpdate },
   { label: '', path: '/incidents/history', Component: IncidentsHistory },
 ];
-
-const LoadingRoute = () => <div>loading</div>;
 
 export default function Routes({
   handleTheme,
 }) {
+  const [loading, setLoading] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [messageSnackbar, setMessageSnackbar] = useState('');
+  const [severitySnackbar, setSeveritySnackbar] = useState('success');
+  const timeoutSnackbar = 5000;
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
+  useEffect(() => {
+    window.setState = {
+      setLoading,
+    };
+  }, []);
+
   return (
-    <Suspense fallback={<LoadingRoute />}>
-      <>
-        <Switch>
-          {routes.map(({ path, Component }) => (
-            <Route
-              exact
-              key={path}
-              path={path}
-            >
-              <RouteStyled>
-                {path !== '/' && <Menu handleTheme={(e) => handleTheme(e)} />}
-                
-                <ContainerStyled margin={path !== '/'}>
-                  {path !== '/' && <Profile />}
-                  <Component />
-                </ContainerStyled>
-              </RouteStyled>
-            </Route>
-          ))}
-        </Switch>
-      </>
-    </Suspense>
+    <Switch>
+      {routes.map(({ path, Component }) => (
+        <Route
+          exact
+          key={path}
+          path={path}
+        >
+          <RouteStyled>
+            {(loading && loading === true) && <Loading />}
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              autoHideDuration={6000}
+              open={openSnackbar}
+              onClose={handleCloseSnackbar}
+              message={messageSnackbar}
+              severity={severitySnackbar}
+            />
+            {path !== '/' && <Menu handleTheme={(e) => handleTheme(e)} />}
+            
+            <Fade in timeout={300}>
+              <ContainerStyled margin={path !== '/'}>
+                {path !== '/' && <Profile handleTheme={(e) => handleTheme(e)} />}
+                <Component setLoading={setLoading} />
+              </ContainerStyled>
+            </Fade>
+          </RouteStyled>
+        </Route>
+      ))}
+    </Switch>
   );
 }

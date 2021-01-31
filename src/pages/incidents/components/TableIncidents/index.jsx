@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -27,30 +27,7 @@ import {
   BadgeHistoryStyled,
 } from './style';
 
-function createData(time, host, problem, severity, duration, verified, notification) {
-  return {
-    time,
-    host,
-    problem,
-    severity,
-    duration,
-    verified,
-    notification,
-    description: { label: 'Operation Data: OPEN (0)' },
-  };
-}
-
-const rows = [
-  createData('16:04', 'Appdynamics_PRD_RICO_BACK_END', 'HR: Business_Transaction_error_rate | TIER: ', 'P1', '5h 19m 42s', 'Sim', 2),
-  createData('16:04', 'Appdynamics_PRD_RICO_BACK_END', 'HR: Business_Transaction_error_rate | TIER: ', 'P1', '5h 19m 42s', 'Sim', 2),
-  createData('16:04', 'Appdynamics_PRD_RICO_BACK_END', 'HR: Business_Transaction_error_rate | TIER: ', 'P1', '5h 19m 42s', 'Sim', 2),
-  createData('16:04', 'Appdynamics_PRD_RICO_BACK_END', 'HR: Business_Transaction_error_rate | TIER: ', 'P1', '5h 19m 42s', 'Sim', 2),
-  createData('16:04', 'Appdynamics_PRD_RICO_BACK_END', 'HR: Business_Transaction_error_rate | TIER: ', 'P1', '5h 19m 42s', 'Sim', 2),
-  createData('16:04', 'Appdynamics_PRD_RICO_BACK_END', 'HR: Business_Transaction_error_rate | TIER: ', 'P1', '5h 19m 42s', 'Sim', 2),
-];
-
-const Row = (props) => {
-  const { row } = props;
+const Row = ({ row }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -136,7 +113,18 @@ const Row = (props) => {
   );
 };
 
-const TableIncidents = () => {
+const TableIncidents = ({
+  dataIncidents
+}) => {
+  const [incidents, setIncidents] = useState([]);
+
+  // useEffect(() => {
+  //   if (dataIncidents && dataIncidents.length > 0) {
+  //     debugger
+  //     const incidentsSerialized = serialize();
+  //   }
+  // }, [dataIncidents])
+
   return (
     <>
       <InfoStyled>
@@ -171,9 +159,14 @@ const TableIncidents = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {/* {rows.map((row) => (
               <Row key={row.name} row={row} />
+            ))} */}
+            
+            {incidents.map((row) => (
+              <Row key={row.host} row={row} />
             ))}
+            
           </TableBody>
         </Table>
       </TableContainer>

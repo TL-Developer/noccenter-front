@@ -1,12 +1,24 @@
 import styled, { keyframes } from 'styled-components';
 import Switch from '@material-ui/core/Switch';
 
+export const MenyContainerStyled = styled.div`
+  height: 100%;
+`;
+
+export const OverLayStyled = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+`;
+
 export const MenuStyled = styled.div`
   display: flex;
   flex-direction: column;
   background: ${({ theme }) => theme.color.neutral.light.pure};
   width: 80px;
   min-width: 80px;
+  height: 100%;
   transition: all ${({ theme }) => theme.motion.velocity.superfast / 200}s ease;
 
   p {
