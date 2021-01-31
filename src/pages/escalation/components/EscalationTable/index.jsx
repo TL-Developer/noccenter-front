@@ -3,12 +3,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import FeatherIcon from '@commons/components/FeatherIcon';
 import { Link } from 'react-router-dom';
+import TableContainer from '@commons/components/TableContainer';
 import * as escalation from '@pages/escalation/services/escalation';
  
 import {
@@ -92,16 +92,13 @@ const TableEscalation = () => {
 
   return (
     <>
-      <TableContainer style={{ boxShadow: 'none' }} component={Paper}>
+      <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
-                  // indeterminate={numSelected > 0 && numSelected < rowCount}
-                  // checked={rowCount > 0 && numSelected === rowCount}
-                  // onChange={onSelectAllClick}
                   inputProps={{ 'aria-label': 'select all desserts' }}
                 />
               </TableCell>

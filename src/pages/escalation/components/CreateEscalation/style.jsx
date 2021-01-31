@@ -31,12 +31,6 @@ export const TableCellStyled = styled(TableCell)`
   }
 `;
 
-export const TableContainerStyled = styled(TableContainer)`
-  && {
-    box-shadow: none;
-  }
-`;
-
 export const FooterStyled = styled.footer`
   display: flex;
   margin-top: ${({ theme }) => theme.spacing.lg};

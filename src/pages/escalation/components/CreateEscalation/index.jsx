@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
 import FeatherIcon from '@commons/components/FeatherIcon';
 import Grid from '@material-ui/core/Grid';
+import TableContainer from '@commons/components/TableContainer';
 
 import {
   CreateEscalationStyled,
@@ -14,7 +15,6 @@ import {
   TextFieldStyled,
   TableStyled,
   TableCellStyled,
-  TableContainerStyled,
   FooterStyled,
   ButtonStyled,
   TextFieldTdStyled,
@@ -47,7 +47,7 @@ const CreateEscalation = ({
       </FormStyled>
 
       <TableStyled>
-        <TableContainerStyled component={Paper}>
+        <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -103,7 +103,7 @@ const CreateEscalation = ({
               ))}
             </TableBody>
           </Table>
-        </TableContainerStyled>
+        </TableContainer>
       </TableStyled>
       
       {!isEditable && (

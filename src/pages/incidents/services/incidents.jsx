@@ -1,6 +1,6 @@
 import http from '@commons/utils/request';
 
-export const getAlerts = () => {
+export const get = () => {
   return http.get('/incidentHistory');
 };
 

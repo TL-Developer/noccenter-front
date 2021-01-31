@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import FeatherIcon from '@commons/components/FeatherIcon';
 import Bullet from '@commons/components/Bullet';
+import TableContainer from '@commons/components/TableContainer';
 import * as model from '@pages/automation/services/model';
  
 import {
@@ -15,7 +16,6 @@ import {
   InfoStyled,
   IconStyled,
   ActionStyled,
-  TableContainerStyled,
   SeverityStyled,
   TextSeverityStyled,
 } from './style';
@@ -119,7 +119,7 @@ const TableIncidents = () => {
         <p><b>2</b> incidentes selecionados</p>
       </InfoStyled>
 
-      <TableContainerStyled component={Paper}>
+      <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
@@ -145,7 +145,7 @@ const TableIncidents = () => {
             ))}
           </TableBody>
         </Table>
-      </TableContainerStyled>
+      </TableContainer>
     </>
   );
 }

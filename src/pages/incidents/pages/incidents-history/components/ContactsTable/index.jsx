@@ -18,19 +18,19 @@ import {
   ButtonModalStyled,
 } from './style';
 
-function createData(date, user, message) {
-  return {
-    date,
-    user,
-    message,
-  };
-}
+// function createData(date, user, message) {
+//   return {
+//     date,
+//     user,
+//     message,
+//   };
+// }
 
-const rows = [
-  createData('10/04/2021   16:04', 'Felipe Vieira', 'Contato realizado com equipe responsável via Teams '),
-  createData('10/04/2021   16:04', 'Felipe Vieira', 'Contato realizado com equipe responsável via Teams '),
-  createData('10/04/2021   16:04', 'Felipe Vieira', 'Contato realizado com equipe responsável via Teams '),
-];
+// const rows = [
+//   createData('10/04/2021   16:04', 'Felipe Vieira', 'Contato realizado com equipe responsável via Teams '),
+//   createData('10/04/2021   16:04', 'Felipe Vieira', 'Contato realizado com equipe responsável via Teams '),
+//   createData('10/04/2021   16:04', 'Felipe Vieira', 'Contato realizado com equipe responsável via Teams '),
+// ];
 
 // const object = {
 //   date: '10/04/2021 16:04',
@@ -38,27 +38,27 @@ const rows = [
 //   message: 'Resolvido',
 // };
 
-const Row = (props) => {
-  const { row } = props;
-
+const Row = ({ contact }) => {
   return (
     <>
       <TableRow>
         <TableCellStyled component="th" scope="row">
-          {row.date}
+          {contact.date}
         </TableCellStyled>
         <TableCellStyled>
-          {row.user}
+          {contact.user}
         </TableCellStyled>
         <TableCellStyled>
-          {row.message}
+          {contact.message}
         </TableCellStyled>
       </TableRow>
     </>
   );
 };
 
-const ContactsTable = () => {
+const ContactsTable = ({
+  contacts,
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -90,8 +90,8 @@ const ContactsTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <Row key={row.date} row={row} />
+              {contacts.map((contact) => (
+                <Row key={contact.date} contact={contact} />
               ))}
             </TableBody>
           </Table>

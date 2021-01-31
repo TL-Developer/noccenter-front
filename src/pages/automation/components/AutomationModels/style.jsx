@@ -82,12 +82,6 @@ export const IconStyled = styled.div`
   }
 `;
 
-export const TableContainerStyled = styled(TableContainer)`
-  && {
-    box-shadow: none;
-  }
-`;
-
 export const SeverityStyled = styled(TableContainer)`
   display: flex;
   align-items: center;

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
@@ -13,6 +11,7 @@ import FeatherIcon from '@commons/components/FeatherIcon';
 import Bullet from '@commons/components/Bullet';
 import Tag from '@commons/components/Tag';
 import { Link } from 'react-router-dom';
+import TableContainer from '@commons/components/TableContainer';
 
 import {
   TableCellStyled,
@@ -25,19 +24,19 @@ import {
   TitleStyled,
   TagsStyled,
   BadgeHistoryStyled,
+  TableRowStyled,
+  TableBodyStyled,
 } from './style';
 
-const Row = ({ row }) => {
+const Row = ({ row, newIncident }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <TableRow>
+      <TableRowStyled newIncident={newIncident}>
         <TableCellStyled padding="checkbox">
           <Checkbox
             color="primary"
-            // checked={isItemSelected}
-            // inputProps={{ 'aria-labelledby': labelId }}
           />
         </TableCellStyled>
         <TableCellStyled component="th" scope="row">
@@ -54,7 +53,7 @@ const Row = ({ row }) => {
             {open ? <FeatherIcon icon="chevron-up" /> : <FeatherIcon icon="chevron-down" />}
           </IconButton>
         </TableCellStyled>
-      </TableRow>
+      </TableRowStyled>
 
       <TableRow>
         <TableCellStyled style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
@@ -114,17 +113,9 @@ const Row = ({ row }) => {
 };
 
 const TableIncidents = ({
-  dataIncidents
+  incidents,
+  newIncident,
 }) => {
-  const [incidents, setIncidents] = useState([]);
-
-  // useEffect(() => {
-  //   if (dataIncidents && dataIncidents.length > 0) {
-  //     debugger
-  //     const incidentsSerialized = serialize();
-  //   }
-  // }, [dataIncidents])
-
   return (
     <>
       <InfoStyled>
@@ -135,16 +126,13 @@ const TableIncidents = ({
         </ContactAutomationStyled>
       </InfoStyled>
 
-      <TableContainer style={{ boxShadow: 'none' }} component={Paper}>
+      <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
-                  // indeterminate={numSelected > 0 && numSelected < rowCount}
-                  // checked={rowCount > 0 && numSelected === rowCount}
-                  // onChange={onSelectAllClick}
                   inputProps={{ 'aria-label': 'select all desserts' }}
                 />
               </TableCell>
@@ -158,16 +146,11 @@ const TableIncidents = ({
               <TableCell />
             </TableRow>
           </TableHead>
-          <TableBody>
-            {/* {rows.map((row) => (
-              <Row key={row.name} row={row} />
-            ))} */}
-            
+          <TableBodyStyled>
             {incidents.map((row) => (
-              <Row key={row.host} row={row} />
+              <Row newIncident={newIncident} key={row.id} row={row} />
             ))}
-            
-          </TableBody>
+          </TableBodyStyled>
         </Table>
       </TableContainer>
     </>
