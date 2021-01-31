@@ -115,6 +115,7 @@ const Row = ({ row, newIncident }) => {
 const TableIncidents = ({
   incidents,
   newIncident,
+  alert,
 }) => {
   return (
     <>

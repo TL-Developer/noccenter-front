@@ -55,10 +55,14 @@ const IncidentsHistory = () => {
 
   const createContact = async (date, user, message, setOpenModal) => {
     const body = {
-      date,
-      user,
-      message,
+      alert: alerts,
+      contacts: [{
+        date,
+        user,
+        message,
+      }],
     };
+    debugger
 
     if (window.setState && window.setState.setLoading) {
       window.setState.setLoading(true);
@@ -75,6 +79,9 @@ const IncidentsHistory = () => {
       window.setState.setSeveritySnackbar('success');
       window.setState.setMessageSnackbar('Salvo com sucesso!');
       getIncidents();
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
     } catch (error) {
       setOpenModal(false);
       console.log(error);
