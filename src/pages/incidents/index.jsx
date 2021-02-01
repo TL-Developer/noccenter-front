@@ -45,7 +45,7 @@ import {
 
 const IncidentsScreen = () => {
   const [incidents, setIncidents] = useState([]);
-  const [newIncident, setNewIncident] = useState(false);
+  const [newincident, setNewincident] = useState(false);
 
   const serialize = (data) => {
     const { fields } = data;
@@ -68,38 +68,42 @@ const IncidentsScreen = () => {
       const dataParsed = JSON.parse(data);
       const newIncidents = incidents;
       const incident = dataParsed.fields;
-      const incidentId = incident.id;
+      const incidentId = incident?.id;
 
-      if (incident.EVENT_VALUE === '0') {
-        const findIndexIncident = newIncidents.findIndex((inc) => inc.id === incidentId);
-        
-        if (findIndexIncident !== -1) {
-          newIncidents.splice(findIndexIncident, 1);
+      if (incidentId) {
+        if (incident.EVENT_VALUE === '0') {
+          const findIndexIncident = newIncidents.findIndex((inc) => inc.id === incidentId);
+          
+          if (findIndexIncident !== -1) {
+            newIncidents.splice(findIndexIncident, 1);
+
+            setIncidents([
+              ...newIncidents,
+            ]);
+    
+            setNewincident(true);
+    
+            setTimeout(() => {
+              setNewincident(false);
+            }, 300);
+          }
+        } else {
+          const incidentSerialized = serialize(dataParsed);
+
+          newIncidents.push(incidentSerialized);
 
           setIncidents([
             ...newIncidents,
           ]);
-  
-          setNewIncident(true);
-  
+
+          setNewincident(true);
+
           setTimeout(() => {
-            setNewIncident(false);
-          }, 300);
+            setNewincident(false);
+          }, 50);
         }
       } else {
-        const incidentSerialized = serialize(dataParsed);
-
-        newIncidents.push(incidentSerialized);
-
-        setIncidents([
-          ...newIncidents,
-        ]);
-
-        setNewIncident(true);
-
-        setTimeout(() => {
-          setNewIncident(false);
-        }, 50);
+        console.log('Zabix não enviou o id')
       }
     });
   }, []);
@@ -112,7 +116,7 @@ const IncidentsScreen = () => {
             <p>GESTÃO DE INCIDENTES</p>
           </TitleStyled>
 
-          <TableIncidents newIncident={newIncident} incidents={incidents} />    
+          <TableIncidents newincident={newincident} incidents={incidents} />    
         </CardStyled>
       </Grid>
     </Grid>

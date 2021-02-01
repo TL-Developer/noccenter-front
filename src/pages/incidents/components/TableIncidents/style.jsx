@@ -119,7 +119,7 @@ export const BadgeHistoryStyled = styled(Badge)`
 
 export const TableRowStyled = styled(TableRow)`
   && {
-    background: ${({ newIncident }) => newIncident ? '#fdf4e4' : '#fff'};
+    background: ${({ newincident }) => newincident ? '#fdf4e4' : '#fff'};
   }
 `;
 

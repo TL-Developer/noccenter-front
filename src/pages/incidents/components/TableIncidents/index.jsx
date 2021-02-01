@@ -12,6 +12,7 @@ import Bullet from '@commons/components/Bullet';
 import Tag from '@commons/components/Tag';
 import { Link } from 'react-router-dom';
 import TableContainer from '@commons/components/TableContainer';
+import * as callAsteriskService from '@pages/incidents/services/asterisk';
 
 import {
   TableCellStyled,
@@ -28,12 +29,46 @@ import {
   TableBodyStyled,
 } from './style';
 
-const Row = ({ key, row, newIncident }) => {
+const Row = ({ key, row, newincident }) => {
   const [open, setOpen] = useState(false);
+  const timeoutSnackbar = 5000;
+
+  const callAsterisk = async () => {
+    const body = {
+      phoneNumber: window.asterisk || '5511981400117',
+    };
+
+    window.setState.setLoading(true);
+
+    try {
+      await callAsteriskService.post(body);
+
+      window.setState.setLoading(false);
+      window.setState.setOpenSnackbar(true);
+      window.setState.setSeveritySnackbar('success');
+      window.setState.setMessageSnackbar('Notificação realizada com sucesso!');
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
+    } catch (error) {
+      console.log(error);
+      window.setState.setOpenSnackbar(true);
+
+      window.setState.setSeveritySnackbar('error');
+      window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
+    }
+  };
 
   return (
     <>
-      <TableRowStyled key={key} newIncident={newIncident}>
+      <TableRowStyled key={key} newincident={newincident}>
         <TableCellStyled padding="checkbox">
           <Checkbox
             color="primary"
@@ -105,7 +140,7 @@ const Row = ({ key, row, newIncident }) => {
                     <p>Ponto de Contato</p>
                   </Link>
                 </IconStyled>
-                <IconStyled>
+                <IconStyled onClick={() => callAsterisk()}>
                   <FeatherIcon icon="phone" />
                   <p>Notificação por voz</p>
                 </IconStyled>
@@ -120,7 +155,7 @@ const Row = ({ key, row, newIncident }) => {
 
 const TableIncidents = ({
   incidents,
-  newIncident,
+  newincident,
 }) => {
   return (
     <>
@@ -154,7 +189,7 @@ const TableIncidents = ({
           </TableHead>
           <TableBodyStyled>
             {incidents.map((row) => (
-              <Row newIncident={newIncident} key={row.id} row={row} />
+              <Row newincident={newincident} key={row.id} row={row} />
             ))}
           </TableBodyStyled>
         </Table>
