@@ -106,12 +106,12 @@ const MacroViewIncidents = () => (
           Visão macro Incidentes
         </h1>
         <p>
-          Hi Tiago,
+          Report anual de incidentes
         </p>
       </TitleStyled>
 
       <SettingsStyled>
-        <p>Settings</p>
+        <p>Reports</p>
       </SettingsStyled>
     </HeaderStyled>
 

@@ -45,7 +45,7 @@ const CreateStepsAutomation = ({
           variant="outlined"
           value={modelDescription}
           multiline
-          rows={5} 
+          rows={2} 
         />
 
         <PriorityStyled>
@@ -89,9 +89,10 @@ const CreateStepsAutomation = ({
 
         <CounterStyled>
           <Counter
-            label="etapas criadas"
+            label="etapas"
             counter={counter}
             qtdCounters={6}
+            infinite
             handleRemove={() => handleRemove()}
             handleAdd={() => handleAdd()}
           />

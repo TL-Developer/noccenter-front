@@ -8,14 +8,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import FeatherIcon from '@commons/components/FeatherIcon';
 import Bullet from '@commons/components/Bullet';
+import TableContainer from '@commons/components/TableContainer';
 import * as model from '@pages/automation/services/model';
  
 import {
   TableCellStyled,
-  InfoStyled,
   IconStyled,
   ActionStyled,
-  TableContainerStyled,
   SeverityStyled,
   TextSeverityStyled,
 } from './style';
@@ -23,13 +22,6 @@ import {
 const Row = ({ automation }) => (
   <>
     <TableRow>
-      <TableCellStyled padding="checkbox">
-        <Checkbox
-          color="primary"
-          // checked={isItemSelected}
-          // inputProps={{ 'aria-labelledby': labelId }}
-        />
-      </TableCellStyled>
       <TableCellStyled component="th" scope="row">
         {automation.model}
       </TableCellStyled>
@@ -78,14 +70,35 @@ const Row = ({ automation }) => (
 
 const TableIncidents = () => {
   const [automations, setAutomations] = useState([]);
+  const timeoutSnackbar = 5000;
 
   const getAutomations = async () => {
+    if (window.setState && window.setState.setLoading) {
+      window.setState.setLoading(true);
+    }
+    
     try {
       const automationsData = await model.get();
+      
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
 
       setAutomations(automationsData);
     } catch (error) {
       console.log(error);
+      window.setState.setOpenSnackbar(true);
+
+      window.setState.setSeveritySnackbar('error');
+      window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+      
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
     } 
   };
 
@@ -95,23 +108,10 @@ const TableIncidents = () => {
 
   return (
     <>
-      <InfoStyled>
-        <p><b>2</b> incidentes selecionados</p>
-      </InfoStyled>
-
-      <TableContainerStyled component={Paper}>
+      <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  // indeterminate={numSelected > 0 && numSelected < rowCount}
-                  // checked={rowCount > 0 && numSelected === rowCount}
-                  // onChange={onSelectAllClick}
-                  inputProps={{ 'aria-label': 'select all desserts' }}
-                />
-              </TableCell>
               <TableCell>Modelo</TableCell>
               <TableCell>Descrição</TableCell>
               <TableCell>Prioridade</TableCell>
@@ -125,7 +125,7 @@ const TableIncidents = () => {
             ))}
           </TableBody>
         </Table>
-      </TableContainerStyled>
+      </TableContainer>
     </>
   );
 }

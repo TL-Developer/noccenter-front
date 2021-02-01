@@ -7,20 +7,26 @@ import Button from '@commons/components/Button';
 import {
   ButtonStyled,
   CardStyled,
+  TitleStyled,
 } from './style';
 
-const Escalation = ({
-  setLoading,
-}) => (
+const Escalation = () => (
   <Grid container>
     <Grid item xs={12}>
       <CardStyled>
-          <ButtonStyled>
-            <Link to="/escalation/new">
-              <Button>Criar novo grupo</Button>
-            </Link>
-          </ButtonStyled>
-        <EscalationTable setLoading={setLoading} />    
+          <header>
+            <TitleStyled>
+              <p>ESCALATION</p>
+            </TitleStyled>
+            
+            <ButtonStyled>
+              <Link to="/escalation/new">
+                <Button>Criar novo grupo</Button>
+              </Link>
+            </ButtonStyled>
+          </header>
+
+        <EscalationTable />    
       </CardStyled>
     </Grid>
   </Grid>

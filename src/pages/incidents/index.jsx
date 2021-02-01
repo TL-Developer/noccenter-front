@@ -7,69 +7,105 @@ import {
   CardStyled,
 } from './style';
 
-const incidentesData = [
-  {
-    time: '16:04',
-    host: 'Appdynamics_PRD_RICO_BACK_END',
-    problem: 'HR: Business_Transaction_error_rate | TIER: ',
-    severity: 'P1',
-    duration: '5h 19m 42s',
-    verified: 'Sim',
-    notification: 2,
-    description: { label: 'Operation Data: OPEN (0)' },
-  },
-  {
-    time: '16:04',
-    host: 'Appdynamics_PRD_RICO_BACK_END',
-    problem: 'HR: Business_Transaction_error_rate | TIER: ',
-    severity: 'P1',
-    duration: '5h 19m 42s',
-    verified: 'Sim',
-    notification: 2,
-    description: { label: 'Operation Data: OPEN (0)' },
-  },
-];
+// const incidentesData = [
+//   {
+//     id: '1',
+//     time: '16:04',
+//     host: 'Appdynamics_PRD_RICO_BACK_END',
+//     problem: 'HR: Business_Transaction_error_rate | TIER: ',
+//     severity: 'P1',
+//     duration: '5h 19m 42s',
+//     verified: 'Sim',
+//     notification: 2,
+//     description: { label: 'Operation Data: OPEN (0)' },
+//   },
+//   {
+//     id: '2',
+//     time: '16:04',
+//     host: 'Appdynamics_PRD_RICO_BACK_END',
+//     problem: 'HR: Business_Transaction_error_rate | TIER: ',
+//     severity: 'P1',
+//     duration: '5h 19m 42s',
+//     verified: 'Sim',
+//     notification: 2,
+//     description: { label: 'Operation Data: OPEN (0)' },
+//   },
+//   {
+//     id: '3',
+//     time: '16:04',
+//     host: 'Appdynamics_PRD_RICO_BACK_END',
+//     problem: 'HR: Business_Transaction_error_rate | TIER: ',
+//     severity: 'P1',
+//     duration: '5h 19m 42s',
+//     verified: 'Sim',
+//     notification: 2,
+//     description: { label: 'Operation Data: OPEN (0)' },
+//   },
+// ];
 
-const Incidents = () => {
-  const [incidents, setIncidents] = useState(incidentesData);
+const IncidentsScreen = () => {
+  const [incidents, setIncidents] = useState([]);
+  const [newincident, setNewincident] = useState(false);
 
   const serialize = (data) => {
-    debugger
     const { fields } = data;
-    const newDataIncidents = data.map((incident) => {
-      // const result = {
-      //   "id":data.EVENT_ID,
-      //   "time": data.EVENT_TIME,
-      //   "date": data.EVENT_DATE,
-      //   "host": data.HOST_HOST1,
-      //   "problem": data.ALERT_SUBJECT,
-      //   "severity": data.TRIGGER_SEVERITY,
-      //   "duration": data.EVENT_AGE,
-      //   "verified": false,
-      //   "notification": false,
-      //   "description": { "label": data.EVENT_TAGS }
-      // };
-      return {
-        time: incident.EVENT_TIME,
-        host: incident.HOST_HOST1,
-        problem: incident.ALERT_SUBJECT,
-        severity: incident.TRIGGER_SEVERITY,
-        duration: incident.EVENT_AGE,
-        verified: 'Nao',
-        notification: 2,
-        description: { label: incident.EVENT_TAGS },
-      };
-    });
+
+    return {
+      id: fields.id,
+      time: fields.time,
+      host: fields.host,
+      problem: fields.problem,
+      severity: fields.severity,
+      duration: fields.EVENT_AGE,
+      verified: fields.verified ? 'Sim' : 'Não',
+      notification: 2,
+      description: { label: fields.description },
+    }
   };
   
   useEffect(() => {
-    if (window.socket) {
-      window.socket.on("incidents_messages", data => {
-        debugger
-        // serialize(data);
-        console.log(data);
-      });
-    }
+    window.socket.on("incidents_messages", data => {
+      const dataParsed = JSON.parse(data);
+      const newIncidents = incidents;
+      const incident = dataParsed.fields;
+      const incidentId = incident?.id;
+
+      if (incidentId) {
+        if (incident.EVENT_VALUE === '0') {
+          const findIndexIncident = newIncidents.findIndex((inc) => inc.id === incidentId);
+          
+          if (findIndexIncident !== -1) {
+            newIncidents.splice(findIndexIncident, 1);
+
+            setIncidents([
+              ...newIncidents,
+            ]);
+    
+            setNewincident(true);
+    
+            setTimeout(() => {
+              setNewincident(false);
+            }, 300);
+          }
+        } else {
+          const incidentSerialized = serialize(dataParsed);
+
+          newIncidents.push(incidentSerialized);
+
+          setIncidents([
+            ...newIncidents,
+          ]);
+
+          setNewincident(true);
+
+          setTimeout(() => {
+            setNewincident(false);
+          }, 50);
+        }
+      } else {
+        console.log('Zabix não enviou o id')
+      }
+    });
   }, []);
 
   return (
@@ -77,14 +113,14 @@ const Incidents = () => {
       <Grid item xs={12}>
         <CardStyled>
           <TitleStyled>
-            <p>Visualizar por: Prioridade</p>
+            <p>GESTÃO DE INCIDENTES</p>
           </TitleStyled>
 
-          <TableIncidents dataIncidents={incidents} />    
+          <TableIncidents newincident={newincident} incidents={incidents} />    
         </CardStyled>
       </Grid>
     </Grid>
   );
 }
 
-export default Incidents;
+export default IncidentsScreen;

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
@@ -13,6 +11,8 @@ import FeatherIcon from '@commons/components/FeatherIcon';
 import Bullet from '@commons/components/Bullet';
 import Tag from '@commons/components/Tag';
 import { Link } from 'react-router-dom';
+import TableContainer from '@commons/components/TableContainer';
+import * as callAsteriskService from '@pages/incidents/services/asterisk';
 
 import {
   TableCellStyled,
@@ -25,19 +25,53 @@ import {
   TitleStyled,
   TagsStyled,
   BadgeHistoryStyled,
+  TableRowStyled,
+  TableBodyStyled,
 } from './style';
 
-const Row = ({ row }) => {
+const Row = ({ key, row, newincident }) => {
   const [open, setOpen] = useState(false);
+  const timeoutSnackbar = 5000;
+
+  const callAsterisk = async () => {
+    const body = {
+      phoneNumber: window.asterisk || '5511981400117',
+    };
+
+    window.setState.setLoading(true);
+
+    try {
+      await callAsteriskService.post(body);
+
+      window.setState.setLoading(false);
+      window.setState.setOpenSnackbar(true);
+      window.setState.setSeveritySnackbar('success');
+      window.setState.setMessageSnackbar('Notificação realizada com sucesso!');
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
+    } catch (error) {
+      console.log(error);
+      window.setState.setOpenSnackbar(true);
+
+      window.setState.setSeveritySnackbar('error');
+      window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
+      setTimeout(() => {
+        window.setState.setOpenSnackbar(false);
+      }, timeoutSnackbar)
+    }
+  };
 
   return (
     <>
-      <TableRow>
+      <TableRowStyled key={key} newincident={newincident}>
         <TableCellStyled padding="checkbox">
           <Checkbox
             color="primary"
-            // checked={isItemSelected}
-            // inputProps={{ 'aria-labelledby': labelId }}
           />
         </TableCellStyled>
         <TableCellStyled component="th" scope="row">
@@ -54,7 +88,7 @@ const Row = ({ row }) => {
             {open ? <FeatherIcon icon="chevron-up" /> : <FeatherIcon icon="chevron-down" />}
           </IconButton>
         </TableCellStyled>
-      </TableRow>
+      </TableRowStyled>
 
       <TableRow>
         <TableCellStyled style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
@@ -79,7 +113,7 @@ const Row = ({ row }) => {
                 </section>
                 <footer>
                   <IconStyled>
-                    <Link to="/incidents/history">
+                    <Link to={`/incidents/${row.id}/history`}>
                       <BadgeHistoryStyled color="primary" badgeContent={2}>
                         <FeatherIcon icon="inbox" />
                         <p>Histórico de notificações</p>
@@ -94,13 +128,19 @@ const Row = ({ row }) => {
 
                 <IconStyled>
                   <FeatherIcon icon="users" />
-                  <p>Contato via Teams</p>
+                  <p>
+                    <a href="https://teams.microsoft.com/l/chat/0/0?users=fernando.araujo@xpi.com.br" target="black">
+                      Contato via Teams
+                    </a>
+                  </p>
                 </IconStyled>
                 <IconStyled>
                   <FeatherIcon icon="sidebar" />
-                  <p>Ponto de Contato</p>
+                  <Link to="/escalation">
+                    <p>Ponto de Contato</p>
+                  </Link>
                 </IconStyled>
-                <IconStyled>
+                <IconStyled onClick={() => callAsterisk()}>
                   <FeatherIcon icon="phone" />
                   <p>Notificação por voz</p>
                 </IconStyled>
@@ -114,17 +154,9 @@ const Row = ({ row }) => {
 };
 
 const TableIncidents = ({
-  dataIncidents
+  incidents,
+  newincident,
 }) => {
-  const [incidents, setIncidents] = useState([]);
-
-  // useEffect(() => {
-  //   if (dataIncidents && dataIncidents.length > 0) {
-  //     debugger
-  //     const incidentsSerialized = serialize();
-  //   }
-  // }, [dataIncidents])
-
   return (
     <>
       <InfoStyled>
@@ -135,16 +167,13 @@ const TableIncidents = ({
         </ContactAutomationStyled>
       </InfoStyled>
 
-      <TableContainer style={{ boxShadow: 'none' }} component={Paper}>
+      <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
-                  // indeterminate={numSelected > 0 && numSelected < rowCount}
-                  // checked={rowCount > 0 && numSelected === rowCount}
-                  // onChange={onSelectAllClick}
                   inputProps={{ 'aria-label': 'select all desserts' }}
                 />
               </TableCell>
@@ -158,16 +187,11 @@ const TableIncidents = ({
               <TableCell />
             </TableRow>
           </TableHead>
-          <TableBody>
-            {/* {rows.map((row) => (
-              <Row key={row.name} row={row} />
-            ))} */}
-            
+          <TableBodyStyled>
             {incidents.map((row) => (
-              <Row key={row.host} row={row} />
+              <Row newincident={newincident} key={row.id} row={row} />
             ))}
-            
-          </TableBody>
+          </TableBodyStyled>
         </Table>
       </TableContainer>
     </>

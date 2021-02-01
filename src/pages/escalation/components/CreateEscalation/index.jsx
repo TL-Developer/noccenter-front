@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
 import FeatherIcon from '@commons/components/FeatherIcon';
 import Grid from '@material-ui/core/Grid';
+import TableContainer from '@commons/components/TableContainer';
 
 import {
   CreateEscalationStyled,
@@ -14,13 +15,13 @@ import {
   TextFieldStyled,
   TableStyled,
   TableCellStyled,
-  TableContainerStyled,
   FooterStyled,
   ButtonStyled,
   TextFieldTdStyled,
 } from './style';
 
 const CreateEscalation = ({
+  isEditable,
   saveEscalation,
   onChange,
   escalations,
@@ -33,18 +34,20 @@ const CreateEscalation = ({
     <CreateEscalationStyled>
       <FormStyled>
         <TextFieldStyled
+          disabled={isEditable}
           value={squad}
           onChange={(e) => setSquad(e.target.value)} label="Nome da Equipe, Squad" variant="outlined"
         />
         
         <TextFieldStyled
+          disabled={isEditable}
           value={techLead} 
           onChange={(e) => setTechLead(e.target.value)} label="Tech Lead" variant="outlined"
         />
       </FormStyled>
 
       <TableStyled>
-        <TableContainerStyled component={Paper}>
+        <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -63,12 +66,14 @@ const CreateEscalation = ({
                   </TableCellStyled>
                   <TableCellStyled component="th" scope="row">
                     <TextFieldTdStyled
+                      disabled={isEditable}
                       onChange={(e) => onChange(e, escalation, index, 'job')}
                       value={escalation.job}
                     />
                   </TableCellStyled>
                   <TableCellStyled component="th" scope="row">
                     <TextFieldTdStyled
+                      disabled={isEditable}
                       onChange={(e) => onChange(e, escalation, index, 'name')}
                       value={escalation.name}
                     />
@@ -76,10 +81,8 @@ const CreateEscalation = ({
                   <TableCellStyled component="th" scope="row">
                     <Grid container spacing={1} alignItems="flex-end">
                       <Grid item>
-                        <FeatherIcon size="18" icon="phone" />
-                      </Grid>
-                      <Grid item>
                         <TextFieldTdStyled
+                          disabled={isEditable}
                           onChange={(e) => onChange(e, escalation, index, 'contact')}
                           value={escalation.contact}
                         />
@@ -88,6 +91,7 @@ const CreateEscalation = ({
                   </TableCellStyled>
                   <TableCellStyled component="th" scope="row">
                     <TextFieldTdStyled
+                      disabled={isEditable}
                       onChange={(e) => onChange(e, escalation, index, 'email')}
                       value={escalation.email}
                     />
@@ -96,12 +100,14 @@ const CreateEscalation = ({
               ))}
             </TableBody>
           </Table>
-        </TableContainerStyled>
+        </TableContainer>
       </TableStyled>
-
-      <FooterStyled>
-        <ButtonStyled onClick={() => saveEscalation()}>Criar grupo de escalation</ButtonStyled>
-      </FooterStyled>
+      
+      {!isEditable && (
+        <FooterStyled>
+          <ButtonStyled onClick={() => saveEscalation()}>Criar grupo de escalation</ButtonStyled>
+        </FooterStyled>
+      )}
     </CreateEscalationStyled>
   );
 };

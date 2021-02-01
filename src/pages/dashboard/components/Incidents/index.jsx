@@ -9,7 +9,7 @@ const Incidents = () => (
         title="P1"
         subtitle="Incidentes"
         color="#ff3300"
-        value="16"
+        value="15"
       />
     </Grid>
 
@@ -18,7 +18,7 @@ const Incidents = () => (
         title="P2"
         subtitle="Incidentes"
         color="#E28800"
-        value="16"
+        value="25"
       />
     </Grid>
 
@@ -27,7 +27,7 @@ const Incidents = () => (
         title="P3"
         subtitle="Incidentes"
         color="#9A00E2"
-        value="16"
+        value="37"
       />
     </Grid>
 
@@ -36,7 +36,7 @@ const Incidents = () => (
         title="P4"
         subtitle="Incidentes"
         color="#ff3300"
-        value="16"
+        value="50"
       />
     </Grid>
   </Grid>

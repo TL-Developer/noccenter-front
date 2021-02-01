@@ -6,70 +6,51 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
 import Modal from '@commons/components/Modal';
+import TableContainer from '@commons/components/TableContainer';
+import * as incidents from '@pages/incidents/services/incidents';
 
 import {
   ContactsTableStyled,
   TableStyled,
   TableCellStyled,
-  TableContainerStyled,
   ButtonStyled,
   ContainerStyled,
   TextFieldTdStyled,
   ButtonModalStyled,
 } from './style';
 
-function createData(date, user, message) {
-  return {
-    date,
-    user,
-    message,
-  };
-}
-
-const rows = [
-  createData('10/04/2021   16:04', 'Felipe Vieira', 'Contato realizado com equipe responsável via Teams '),
-  createData('10/04/2021   16:04', 'Felipe Vieira', 'Contato realizado com equipe responsável via Teams '),
-  createData('10/04/2021   16:04', 'Felipe Vieira', 'Contato realizado com equipe responsável via Teams '),
-];
-
-// const object = {
-//   date: '10/04/2021 16:04',
-//   user: 'Felipe Vieira',
-//   message: 'Resolvido',
-// };
-
-const Row = (props) => {
-  const { row } = props;
-
+const Row = ({ contact }) => {
   return (
     <>
       <TableRow>
         <TableCellStyled component="th" scope="row">
-          {row.date}
+          {contact.date}
         </TableCellStyled>
         <TableCellStyled>
-          {row.user}
+          {contact.user}
         </TableCellStyled>
         <TableCellStyled>
-          {row.message}
+          {contact.message}
         </TableCellStyled>
       </TableRow>
     </>
   );
 };
 
-const ContactsTable = () => {
+const ContactsTable = ({
+  contacts,
+  createContact,
+}) => {
   const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [user, setUser] = useState('Tiago Lima');
+  const [message, setMessage] = useState('');
 
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
-  };
-
-  const createContact = () => {
     setOpen(false);
   };
 
@@ -80,7 +61,7 @@ const ContactsTable = () => {
       </ButtonStyled>
 
       <TableStyled>
-        <TableContainerStyled component={Paper}>
+        <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -90,12 +71,12 @@ const ContactsTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <Row key={row.date} row={row} />
+              {contacts.map((contact) => (
+                <Row key={contact.date} contact={contact} />
               ))}
             </TableBody>
           </Table>
-        </TableContainerStyled>
+        </TableContainer>
       </TableStyled>
 
       <Modal
@@ -106,7 +87,7 @@ const ContactsTable = () => {
           <h2>Cadastrar contato</h2> <br />
           
           <TableStyled>
-            <TableContainerStyled component={Paper}>
+            <TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -118,21 +99,24 @@ const ContactsTable = () => {
                 <TableBody>
                   <TableRow>
                     <TableCellStyled component="th" scope="row">
-                      <p>10/04/2021 16:04</p>
+                      <p>{new Date().toISOString().split('T')[0]}</p>
                     </TableCellStyled>
                     <TableCellStyled component="th" scope="row">
-                      <p>Felipe Vieira</p>
+                      <p>Tiago Lima</p>
                     </TableCellStyled>
                     <TableCellStyled component="th" scope="row">
-                      <TextFieldTdStyled />
+                      <TextFieldTdStyled
+                        onChange={(e) => setMessage(e.target.value)}
+                        value={message}
+                      />
                     </TableCellStyled>
                   </TableRow>
                 </TableBody>
               </Table>
-            </TableContainerStyled>
+            </TableContainer>
           </TableStyled>
 
-          <ButtonModalStyled onClick={createContact} width="150px">
+          <ButtonModalStyled onClick={() => createContact(date, user, message, setOpen)} width="150px">
             Adicionar
           </ButtonModalStyled>
         </ContainerStyled>

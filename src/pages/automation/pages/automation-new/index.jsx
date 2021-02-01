@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import CreateStepsAutomation from './components/CreateStepsAutomation';
 import SequenceAutomation from './components/SequenceAutomation';
-import Snackbar from '@commons/components/Snackbar';
+import { useHistory } from 'react-router-dom';
 import * as automation from '@pages/automation/services/automation'; 
 
 import {
@@ -38,14 +38,8 @@ const AutomationNew = () => {
   const [modelName, setModelName] = useState('');
   const [modelDescription, setModelDescription] = useState('');
   const [priorityAssociate, setPriorityAssociate] = useState('');
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [messageSnackbar, setMessageSnackbar] = useState('');
-  const [severitySnackbar, setSeveritySnackbar] = useState('success');
+  const history = useHistory();
   const timeoutSnackbar = 5000;
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
 
   const changeModelName = (e) => {
     const { target: { value } } = e;
@@ -73,25 +67,36 @@ const AutomationNew = () => {
       steps,
     };
 
-    console.log(JSON.stringify(body));
-    console.log(body);
+    if (window.setState && window.setState.setLoading) {
+      window.setState.setLoading(true);
+    }
 
     try {
       await automation.post(body);
 
-      setOpenSnackbar(true);
-      setSeveritySnackbar('success');
-      setMessageSnackbar('Salvo com sucesso');
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
+      window.setState.setOpenSnackbar(true);
+      window.setState.setSeveritySnackbar('success');
+      window.setState.setMessageSnackbar('Salvo com sucesso');
+      history('/automation');
       setTimeout(() => {
-        setOpenSnackbar(false);
+        window.setState.setOpenSnackbar(false);
       }, timeoutSnackbar)
     } catch (error) {
       console.log(error);
-      setOpenSnackbar(true);
-      setSeveritySnackbar('error');
-      setMessageSnackbar('Ops! Ocorreu um erro');
+      window.setState.setOpenSnackbar(true);
+
+      window.setState.setSeveritySnackbar('error');
+      window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
       setTimeout(() => {
-        setOpenSnackbar(false);
+        window.setState.setOpenSnackbar(false);
       }, timeoutSnackbar)
     }
   };
@@ -162,17 +167,6 @@ const AutomationNew = () => {
 
   return (
     <Grid container>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        autoHideDuration={6000}
-        open={openSnackbar}
-        onClose={handleCloseSnackbar}
-        message={messageSnackbar}
-        severity={severitySnackbar}
-      />
       <CardStyled>
         <ContainerStyled>
           <CreateStepsAutomationStyled>

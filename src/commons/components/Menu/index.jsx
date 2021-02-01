@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useHistory  } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 import Logo from '../../../commons/components/Logo';
 import FeatherIcon from '../FeatherIcon';
 
@@ -24,7 +24,6 @@ const Menu = ({
   const [isMobile, setIsMobile] = useState(false);
   const [overlay, setOverlay] = useState(true);
   const $listMenu = useRef(null);
-  const history = useHistory();
 
   const activeItemMenu = () => {
     const { pathname } = window.location;

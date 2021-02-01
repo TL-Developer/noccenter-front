@@ -45,19 +45,6 @@ export const BoxStyled = styled(Box)`
   }
 `;
 
-export const InfoStyled = styled.div`
-  padding: ${({ theme }) => theme.spacing.xs};
-  background: ${({ theme }) => theme.color.brand['1']};
-  border-radius: ${({ theme }) => theme.border.radius.medium};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-
-  p {
-    font-size: ${({ theme }) => theme.font.size.xxxs};
-    color: ${({ theme }) => theme.color.brand.pure};
-    font-weight: ${({ theme }) => theme.font.weight.medium};
-  }
-`;
-
 export const ActionStyled = styled.div`
   display: flex;
 `;
@@ -79,12 +66,6 @@ export const IconStyled = styled.div`
     font-size: ${({ theme }) => theme.font.size.xxxs};
     color: ${({ theme }) => theme.color.neutral.dark.pure};
     font-weight: ${({ theme }) => theme.font.weight.medium};
-  }
-`;
-
-export const TableContainerStyled = styled(TableContainer)`
-  && {
-    box-shadow: none;
   }
 `;
 

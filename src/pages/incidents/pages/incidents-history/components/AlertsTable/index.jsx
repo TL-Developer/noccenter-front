@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
@@ -6,46 +6,20 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
 import Tag from '@commons/components/Tag';
-import * as incidents from '@pages/incidents/services/incidents';
+import TableContainer from '@commons/components/TableContainer';
 
 import {
   AlertsTableStyled,
   TableStyled,
   TableCellStyled,
-  TableContainerStyled,
 } from './style';
 
-// function createData(date, recovery, status, duration, verified, tags) {
-//   return {
-//     date,
-//     recovery,
-//     status,
-//     duration,
-//     verified,
-//     tags,
-//   };
-// }
-
-// const rows = [
-//   createData('10/04/2021   16:04', '10/04/2021   16:04', 'Resolvido', '5h 19m 42s', 'Sim', '#KB_N1: KB0015855'),
-//   createData('10/04/2021   16:04', '10/04/2021   16:04', 'Resolvido', '5h 19m 42s', 'Sim', '#KB_N1: KB0015855'),
-//   createData('10/04/2021   16:04', '10/04/2021   16:04', 'Resolvido', '5h 19m 42s', 'Sim', '#KB_N1: KB0015855'),
-// ];
-
-// const object = {
-//   data: '10/04/2021   16:04',
-//   recovery: '10/04/2021   16:04',
-//   status: 'Resolvido',
-//   duration: '5h 19m 42s',
-//   verified: 'Sim',
-//   tags: '#KB_N1: KB0015855',
-// };
 
 const Row = ({ alert }) => (
   <>
     <TableRow>
       <TableCellStyled component="th" scope="row">
-        {alert.data}
+        {alert.date}
       </TableCellStyled>
       <TableCellStyled>
         {alert.recovery}
@@ -66,28 +40,13 @@ const Row = ({ alert }) => (
   </>
 );
 
-const AlertsTable = () => {
-  const [alerts, setAlerts] = useState([]); 
-  
-  const getAlerts = async () => {
-    try {
-      const alertsData = await incidents.getAlerts();
-      
-      setAlerts(alertsData);
-    } catch (error) {
-      console.log(error);
-    }
-
-  };
-
-  useEffect(() => {
-    getAlerts();
-  }, [])
-
+const AlertsTable = ({
+  alerts,
+}) => {  
   return (
     <AlertsTableStyled>
       <TableStyled>
-        <TableContainerStyled component={Paper}>
+        <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -105,7 +64,7 @@ const AlertsTable = () => {
               ))}
             </TableBody>
           </Table>
-        </TableContainerStyled>
+        </TableContainer>
       </TableStyled>
     </AlertsTableStyled>
   );

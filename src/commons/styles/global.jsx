@@ -1,6 +1,25 @@
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
 
+import GilroyBold from '../../assets/fonts/Gilroy-Bold.otf';
+import GilroyRegular from '../../assets/fonts/Gilroy-Regular.otf';
+
 const headShake = keyframes`
+  @font-face {
+    font-family: 'Gilroy-Bold';
+    src: local('Gilroy-Bold'), local('FontName'),
+    url(${GilroyBold}) format('otf'),
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Gilroy';
+    src: local('Gilroy'), local('FontName'),
+    url(${GilroyRegular}) format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+
   0% {
     transform: translateX(0);
   }
@@ -37,6 +56,8 @@ export const GlobalStyled = createGlobalStyle`
     color: inherit;
     text-decoration: inherit;
     cursor: pointer;
+    font-family: ${({ theme }) => theme.font.family.base};
+    color: ${({ theme }) => theme.color.neutral.dark.pure};
   }
 
   ul {

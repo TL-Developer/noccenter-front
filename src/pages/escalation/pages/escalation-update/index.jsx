@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import CreateEscalation from '@pages/escalation/components/CreateEscalation';
-import Snackbar from '@commons/components/Snackbar';
 import * as escalation from '@pages/escalation/services/escalation'; 
 
 import {
@@ -43,14 +42,7 @@ const EscalationUpdate = () => {
   const [escalations, setEscalations] = useState(escalationsData);
   const [squad, setSquad] = useState(escalationsData[0].squad);
   const [techLead, setTechLead] = useState(escalationsData[0].techLead);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [messageSnackbar, setMessageSnackbar] = useState('');
-  const [severitySnackbar, setSeveritySnackbar] = useState('success');
   const timeoutSnackbar = 5000;
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
 
   const saveEscalation = async () => {
     const body = escalations.map((escalation) => ({
@@ -58,23 +50,38 @@ const EscalationUpdate = () => {
       squad,
       techLead,
     }));
-    console.log(body)
+
+    if (window.setState && window.setState.setLoading) {
+      window.setState.setLoading(true);
+    }
+
     try {
       await escalation.post(body);
 
-      setOpenSnackbar(true);
-      setSeveritySnackbar('success');
-      setMessageSnackbar('Salvo com sucesso');
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
+      window.setState.setOpenSnackbar(true);
+      window.setState.setSeveritySnackbar('success');
+      window.setState.setMessageSnackbar('Salvo com sucesso');
+
       setTimeout(() => {
-        setOpenSnackbar(false);
+        window.setState.setOpenSnackbar(false);
       }, timeoutSnackbar)
     } catch (error) {
       console.log(error);
-      setOpenSnackbar(true);
-      setSeveritySnackbar('error');
-      setMessageSnackbar('Ops! Ocorreu um erro');
+      window.setState.setOpenSnackbar(true);
+
+      window.setState.setSeveritySnackbar('error');
+      window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+
+      if (window.setState && window.setState.setLoading) {
+        window.setState.setLoading(false);
+      }
+
       setTimeout(() => {
-        setOpenSnackbar(false);
+        window.setState.setOpenSnackbar(false);
       }, timeoutSnackbar)
     }
   };
@@ -93,18 +100,6 @@ const EscalationUpdate = () => {
 
   return (
     <Grid container>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        autoHideDuration={6000}
-        open={openSnackbar}
-        onClose={handleCloseSnackbar}
-        message={messageSnackbar}
-        severity={severitySnackbar}
-      />
-      
       <CardStyled>
         <TitleStyled>
           <p>Editar escalation</p>

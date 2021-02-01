@@ -1,7 +1,7 @@
 export default {
   "family":{
-    "base":"Roboto",
-    "highlight":"Roboto Slab"
+    "base":"Gilroy",
+    "highlight":"Gilroy"
   },
   "size":{
     "us":"12px",

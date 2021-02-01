@@ -14,6 +14,7 @@ const Counter = ({
   handleRemove,
   handleAdd,
   qtdCounters,
+  infinite,
 }) => {
   const $counter = useRef(null);
 
@@ -22,11 +23,6 @@ const Counter = ({
       <RemoveStyled
         onClick={() => {
           handleRemove();
-          
-          // $counter.current.classList.add('animate__animated', 'animate__headShake');
-          // setTimeout(() => {
-          //   $counter.current.classList.remove('animate__animated', 'animate__headShake');
-          // }, 1000);
         }}
         counter={counter}
       >
@@ -41,7 +37,7 @@ const Counter = ({
         </p>
       </CounterResultStyled>
 
-      <AddStyled onClick={() => handleAdd()} counter={counter} qtdCounters={qtdCounters}>
+      <AddStyled onClick={() => handleAdd()} counter={counter} qtdCounters={qtdCounters} infinite={infinite}>
         <FeatherIcon icon="plus-circle" size="38" />
       </AddStyled>
     </CounterStyled>

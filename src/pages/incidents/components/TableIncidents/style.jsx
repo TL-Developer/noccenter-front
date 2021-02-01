@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import TableCell from '@material-ui/core/TableCell';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
+import TableRow from '@material-ui/core/TableRow';
+import TableBody from '@material-ui/core/TableBody';
 
 export const TableCellStyled = styled(TableCell)`
   && {
@@ -113,4 +115,14 @@ export const BadgeHistoryStyled = styled(Badge)`
       right: -${({ theme }) => theme.spacing.xs};
     }
   }
+`;
+
+export const TableRowStyled = styled(TableRow)`
+  && {
+    background: ${({ newincident }) => newincident ? '#fdf4e4' : '#fff'};
+  }
+`;
+
+export const TableBodyStyled = styled(TableBody)`
+
 `;
