@@ -159,13 +159,13 @@ const TableIncidents = ({
 }) => {
   return (
     <>
-      <InfoStyled>
+      {/* <InfoStyled>
         <p><b>2</b> incidentes selecionados</p>
         <ContactAutomationStyled>
           <FeatherIcon color="#5323CA" icon="message-square" />
           <p>Automatizar contato</p>
         </ContactAutomationStyled>
-      </InfoStyled>
+      </InfoStyled> */}
 
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
