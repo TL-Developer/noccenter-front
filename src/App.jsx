@@ -5,7 +5,6 @@ import Routes from './routes';
 import { Styled, GlobalStyled } from './commons/styles/global';
 import { theme } from './theme';
 
-
 export default function App() {
   const [whatTheme, setWhatTheme] = useState('light');
 
@@ -23,7 +22,7 @@ export default function App() {
         <Router basename="/">
           <GlobalStyled />
           <Styled>
-            <Routes handleTheme={(e) => handleTheme(e)} />
+            <Routes whatTheme={whatTheme} handleTheme={(e) => handleTheme(e)} />
           </Styled>
         </Router>
       </ThemeProvider>

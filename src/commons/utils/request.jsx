@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const BASE_URL = 'http://10.242.7.180:3002/api/v1';
-const BASE_URL = 'http://10.91.20.82:3002/api/v1';
+const BASE_URL = 'http://10.242.7.180:3002/api/v1';
+// const BASE_URL = 'http://10.91.20.82:3002/api/v1';
 
 export const instance = axios.create({
   baseURL: BASE_URL,

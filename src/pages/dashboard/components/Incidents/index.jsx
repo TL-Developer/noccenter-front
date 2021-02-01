@@ -8,7 +8,7 @@ const Incidents = () => (
       <BigNumber
         title="P1"
         subtitle="Incidentes"
-        color="#ff3300"
+        color="#E20000"
         value="15"
       />
     </Grid>
@@ -26,7 +26,7 @@ const Incidents = () => (
       <BigNumber
         title="P3"
         subtitle="Incidentes"
-        color="#9A00E2"
+        color="#00C7E2"
         value="37"
       />
     </Grid>
@@ -35,7 +35,7 @@ const Incidents = () => (
       <BigNumber
         title="P4"
         subtitle="Incidentes"
-        color="#ff3300"
+        color="#9A00E2"
         value="50"
       />
     </Grid>

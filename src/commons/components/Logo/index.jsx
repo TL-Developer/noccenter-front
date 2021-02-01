@@ -1,5 +1,6 @@
 import React from 'react';
 import logoSvg from '../../../assets/logo-mobile.svg';
+import logoSvgWhite from '../../../assets/logo-white.svg';
 
 import {
   LogoStyled,
@@ -8,9 +9,10 @@ import {
 
 const Logo = ({
   isMobile,
+  whatTheme,
 }) => (
   <LogoStyled isMobile={isMobile}>
-    <img src={logoSvg} />
+    <img src={whatTheme === 'dark' ? logoSvgWhite : logoSvg} />
     <TypographyStyled>
       <h1>
         NOC

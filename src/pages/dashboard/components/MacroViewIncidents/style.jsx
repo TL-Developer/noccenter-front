@@ -24,14 +24,14 @@ export const TitleStyled = styled.div`
   h1 { 
     font-size: ${({ theme }) => theme.font.size.sm};
     font-weight: ${({ theme }) => theme.font.weight.medium};
-    color: ${({ theme }) => theme.color.neutral.light.pure};
+    color: #fff;
   }
 
   p { 
     margin-top: ${({ theme }) => theme.spacing.xxs};
     font-size: ${({ theme }) => theme.font.size.xxxs};
     font-weight: ${({ theme }) => theme.font.weight.regular};
-    color: ${({ theme }) => theme.color.neutral.light.pure};
+    color: #fff;
   }
 `;
 

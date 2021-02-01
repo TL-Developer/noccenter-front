@@ -20,6 +20,7 @@ import {
 
 const Menu = ({
   handleTheme,
+  whatTheme,
 }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [overlay, setOverlay] = useState(true);
@@ -50,7 +51,7 @@ const Menu = ({
         onMouseLeave={() => setIsMobile(false)}
       >
         <HeaderStyled>
-          <Logo isMobile={isMobile} width="xxxl" />
+          <Logo whatTheme={whatTheme} isMobile={isMobile} width="xxxl" />
         </HeaderStyled>
         
         <SectionStyled>

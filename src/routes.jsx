@@ -50,6 +50,7 @@ export const routes = [
 
 export default function Routes({
   handleTheme,
+  whatTheme,
 }) {
   const [loading, setLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -90,7 +91,7 @@ export default function Routes({
               message={messageSnackbar}
               severity={severitySnackbar}
             />
-            {path !== '/' && <Menu handleTheme={(e) => handleTheme(e)} />}
+            {path !== '/' && <Menu whatTheme={whatTheme} handleTheme={(e) => handleTheme(e)} />}
             
             <Fade in timeout={300}>
               <ContainerStyled margin={path !== '/'}>
