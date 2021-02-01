@@ -28,12 +28,12 @@ import {
   TableBodyStyled,
 } from './style';
 
-const Row = ({ row, newIncident }) => {
+const Row = ({ key, row, newIncident }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <TableRowStyled newIncident={newIncident}>
+      <TableRowStyled key={key} newIncident={newIncident}>
         <TableCellStyled padding="checkbox">
           <Checkbox
             color="primary"
@@ -93,11 +93,17 @@ const Row = ({ row, newIncident }) => {
 
                 <IconStyled>
                   <FeatherIcon icon="users" />
-                  <p>Contato via Teams</p>
+                  <p>
+                    <a href="https://teams.microsoft.com/l/chat/0/0?users=fernando.araujo@xpi.com.br" target="black">
+                      Contato via Teams
+                    </a>
+                  </p>
                 </IconStyled>
                 <IconStyled>
                   <FeatherIcon icon="sidebar" />
-                  <p>Ponto de Contato</p>
+                  <Link to="/escalation">
+                    <p>Ponto de Contato</p>
+                  </Link>
                 </IconStyled>
                 <IconStyled>
                   <FeatherIcon icon="phone" />

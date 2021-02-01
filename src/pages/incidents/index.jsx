@@ -64,33 +64,17 @@ const IncidentsScreen = () => {
   };
   
   useEffect(() => {
-    // if (window.socket) {
-      window.socket.on("incidents_messages", data => {
-        const dataParsed = JSON.parse(data);
-        const newIncidents = incidents;
-        const incident = dataParsed.fields;
-        const incidentId = incident.id;
+    window.socket.on("incidents_messages", data => {
+      const dataParsed = JSON.parse(data);
+      const newIncidents = incidents;
+      const incident = dataParsed.fields;
+      const incidentId = incident.id;
 
-        if (incident.EVENT_VALUE === '0') {
-          const findIndexIncident = newIncidents.findIndex((inc) => inc.id === incidentId);
-          
-          if (findIndexIncident !== -1) {
-            newIncidents.splice(findIndexIncident, 1);
-
-            setIncidents([
-              ...newIncidents,
-            ]);
-    
-            setNewIncident(true);
-    
-            setTimeout(() => {
-              setNewIncident(false);
-            }, 300);
-          }
-        } else {
-          const incidentSerialized = serialize(dataParsed);
-
-          newIncidents.push(incidentSerialized);
+      if (incident.EVENT_VALUE === '0') {
+        const findIndexIncident = newIncidents.findIndex((inc) => inc.id === incidentId);
+        
+        if (findIndexIncident !== -1) {
+          newIncidents.splice(findIndexIncident, 1);
 
           setIncidents([
             ...newIncidents,
@@ -100,10 +84,24 @@ const IncidentsScreen = () => {
   
           setTimeout(() => {
             setNewIncident(false);
-          }, 50);
+          }, 300);
         }
-      });
-    // }
+      } else {
+        const incidentSerialized = serialize(dataParsed);
+
+        newIncidents.push(incidentSerialized);
+
+        setIncidents([
+          ...newIncidents,
+        ]);
+
+        setNewIncident(true);
+
+        setTimeout(() => {
+          setNewIncident(false);
+        }, 50);
+      }
+    });
   }, []);
 
   return (
