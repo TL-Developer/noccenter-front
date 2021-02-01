@@ -21,8 +21,12 @@ export const TypographyStyled = styled.div`
 export const LogoStyled = styled.div`
   display: flex;
   align-items: center;
+  margin-left: -${({ theme }) => theme.spacing.xs};
+  transition: all ${({ theme }) => theme.motion.velocity.superfast / 300}s ease;
 
   ${({ isMobile }) => isMobile && css`
+    margin-left: ${({ theme }) => theme.spacing.xxxs};
+
     h1, h2 {
       opacity: 1;
       width: 100px;

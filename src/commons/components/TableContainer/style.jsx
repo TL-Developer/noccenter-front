@@ -4,9 +4,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 export const TableContainerStyled = styled(TableContainer)`
   && {
     box-shadow: none;
-    max-height: 400px;
+    /* max-height: 400px;
     overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-x: hidden; */
 
     ::-webkit-scrollbar {
       width: 4px;

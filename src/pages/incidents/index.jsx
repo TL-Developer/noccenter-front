@@ -70,7 +70,6 @@ const IncidentsScreen = () => {
         const newIncidents = incidents;
         const incident = dataParsed.fields;
         const incidentId = incident.id;
-        debugger
 
         if (incident.EVENT_VALUE === '0') {
           const findIndexIncident = newIncidents.findIndex((inc) => inc.id === incidentId);
@@ -112,7 +111,7 @@ const IncidentsScreen = () => {
       <Grid item xs={12}>
         <CardStyled>
           <TitleStyled>
-            <p>Visualizar por: Prioridade</p>
+            <p>GESTÃO DE INCIDENTES</p>
           </TitleStyled>
 
           <TableIncidents newIncident={newIncident} incidents={incidents} />    

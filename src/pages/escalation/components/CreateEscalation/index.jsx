@@ -81,9 +81,6 @@ const CreateEscalation = ({
                   <TableCellStyled component="th" scope="row">
                     <Grid container spacing={1} alignItems="flex-end">
                       <Grid item>
-                        <FeatherIcon size="18" icon="phone" />
-                      </Grid>
-                      <Grid item>
                         <TextFieldTdStyled
                           disabled={isEditable}
                           onChange={(e) => onChange(e, escalation, index, 'contact')}

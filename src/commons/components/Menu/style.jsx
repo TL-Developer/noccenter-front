@@ -2,6 +2,8 @@ import styled, { keyframes } from 'styled-components';
 import Switch from '@material-ui/core/Switch';
 
 export const MenyContainerStyled = styled.div`
+  position: fixed;
+  z-index: 500;
   height: 100%;
 `;
 
@@ -19,10 +21,10 @@ export const MenuStyled = styled.div`
   width: 80px;
   min-width: 80px;
   height: 100%;
-  transition: all ${({ theme }) => theme.motion.velocity.superfast / 200}s ease;
+  transition: all ${({ theme }) => theme.motion.velocity.superfast / 300}s ease;
 
   p {
-    transition: all ${({ theme }) => theme.motion.velocity.superfast / 300}s ease;
+    transition: all ${({ theme }) => theme.motion.velocity.superfast / 400}s ease;
     opacity: 0;
     width: 0;
     font-size: ${({ theme }) => theme.font.size.xxxs};
@@ -38,7 +40,7 @@ export const MenuStyled = styled.div`
 
     li {
       justify-content: left;
-      padding: ${({ theme }) => theme.spacing.xs} 0 ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.xs};
+      padding: ${({ theme }) => theme.spacing.xs} 0 ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md};
     }
 
     p {
@@ -50,8 +52,8 @@ export const MenuStyled = styled.div`
 
 export const HeaderStyled = styled.header`
   display: flex;
-  justify-content: center;
   flex: 1;
+  margin-left: ${({ theme }) => theme.spacing.md};
 `;
 
 export const SectionStyled = styled.header`
@@ -81,7 +83,7 @@ const listMenuItemPipeAnimation = keyframes`
 export const ListMenuItemStyled = styled.li`
   display: flex;
   align-items: center;
-  transition: all ${({ theme }) => theme.motion.velocity.superfast / 200}s ease;
+  transition: all ${({ theme }) => theme.motion.velocity.superfast / 300}s ease;
   cursor: pointer;
   position: relative;
   padding: ${({ theme }) => theme.spacing.xs} 0 ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
@@ -99,7 +101,7 @@ export const ListMenuItemStyled = styled.li`
       left: 0;
       background: ${({ theme }) => theme.color.brand.pure};
       animation-name: ${listMenuItemPipeAnimation};
-      animation-duration: ${({ theme }) => theme.motion.velocity.superfast / 200}s;
+      animation-duration: ${({ theme }) => theme.motion.velocity.superfast / 300}s;
     }
   }
 
@@ -115,7 +117,7 @@ export const ListMenuItemStyled = styled.li`
       left: 0;
       background: ${({ theme }) => theme.color.brand.pure};
       animation-name: ${listMenuItemPipeAnimation};
-      animation-duration: ${({ theme }) => theme.motion.velocity.superfast / 200}s;
+      animation-duration: ${({ theme }) => theme.motion.velocity.superfast / 300}s;
     }
   }
 `;

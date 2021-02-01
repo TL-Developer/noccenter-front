@@ -9,6 +9,7 @@ export const CreateStepsAutomationStyled = styled.div`
     h1 {
       font-size: ${({ theme }) => theme.font.size.xxs};
       font-weight: ${({ theme }) => theme.font.weight.medium};
+      text-transform: uppercase;
     }
   }
 
@@ -18,7 +19,8 @@ export const CreateStepsAutomationStyled = styled.div`
     flex-direction: column;
 
     h2 {
-      margin-top: ${({ theme }) => theme.spacing.lg};
+      text-transform: uppercase;
+      margin-top: ${({ theme }) => theme.spacing.sm};
       font-size: ${({ theme }) => theme.font.size.xxs};
       font-weight: ${({ theme }) => theme.font.weight.medium};
     }
@@ -27,13 +29,13 @@ export const CreateStepsAutomationStyled = styled.div`
 
 export const ModelNameStyled = styled(TextField)`
   && {
-    margin-top: ${({ theme }) => theme.spacing.lg};
+    margin-top: ${({ theme }) => theme.spacing.sm};
   }
 `;
 
 export const ModelDescriptionStyled = styled(TextField)`
   && {
-    margin-top: ${({ theme }) => theme.spacing.lg};
+    margin-top: ${({ theme }) => theme.spacing.sm};
   }
 `;
 
@@ -42,14 +44,14 @@ export const CounterStyled = styled.div`
 `;
 
 export const FooterStyled = styled.footer`
-  width: 60%;
-  margin: ${({ theme }) => theme.spacing.xxxl} auto 0 10%;
+  margin-top: ${({ theme }) => theme.spacing.lg};
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
+  margin-right: ${({ theme }) => theme.spacing.lg};
 `;
 
 export const PriorityStyled = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.md};
+  margin-top: ${({ theme }) => theme.spacing.sm};
 
   h1 {
     font-size: ${({ theme }) => theme.font.size.xxs};

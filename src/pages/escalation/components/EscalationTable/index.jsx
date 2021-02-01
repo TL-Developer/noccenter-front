@@ -21,13 +21,6 @@ import {
 const Row = ({ escalatioId, escalation }) => (
   <>
     <TableRow>
-      <TableCellStyled padding="checkbox">
-        <Checkbox
-          color="primary"
-          // checked={isItemSelected}
-          // inputProps={{ 'aria-labelledby': labelId }}
-        />
-      </TableCellStyled>
       <TableCellStyled component="th" scope="row">
         {escalation.squad}
       </TableCellStyled>
@@ -96,16 +89,9 @@ const TableEscalation = () => {
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  inputProps={{ 'aria-label': 'select all desserts' }}
-                />
-              </TableCell>
               <TableCell>Squad</TableCell>
               <TableCell>Tech lead</TableCell>
               <TableCell>Ações</TableCell>
-              <TableCell />
             </TableRow>
           </TableHead> 
           <TableBody>

@@ -60,6 +60,10 @@ export const UserStyled = styled.div`
     }
   }
 
+  li:nth-child(2) {
+    border-right: 1px solid;
+  }
+
   li:nth-child(1) {
     border-right: ${({ theme }) => theme.border.width.thin} ${({ theme }) => theme.border.style.default} ${({ theme }) => theme.color.neutral.light['1']};
     cursor: pointer;

@@ -46,6 +46,7 @@ export const BoxStyled = styled(Box)`
 
 export const ActionStyled = styled.div`
   display: flex;
+  width: 0;
 `;
 
 export const IconStyled = styled.div`

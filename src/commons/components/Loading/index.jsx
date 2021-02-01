@@ -7,7 +7,7 @@ import {
 
 const Loading = () => (
   <LoadingStyled>
-    <CircularProgress size="100px" />
+    <CircularProgress size="50px" />
   </LoadingStyled>
 );
 

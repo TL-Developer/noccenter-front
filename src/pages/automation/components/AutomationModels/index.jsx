@@ -13,7 +13,6 @@ import * as model from '@pages/automation/services/model';
  
 import {
   TableCellStyled,
-  InfoStyled,
   IconStyled,
   ActionStyled,
   SeverityStyled,
@@ -23,13 +22,6 @@ import {
 const Row = ({ automation }) => (
   <>
     <TableRow>
-      <TableCellStyled padding="checkbox">
-        <Checkbox
-          color="primary"
-          // checked={isItemSelected}
-          // inputProps={{ 'aria-labelledby': labelId }}
-        />
-      </TableCellStyled>
       <TableCellStyled component="th" scope="row">
         {automation.model}
       </TableCellStyled>
@@ -99,6 +91,7 @@ const TableIncidents = () => {
 
       window.setState.setSeveritySnackbar('error');
       window.setState.setMessageSnackbar('Ops! Ocorreu um erro');
+      
       if (window.setState && window.setState.setLoading) {
         window.setState.setLoading(false);
       }
@@ -115,23 +108,10 @@ const TableIncidents = () => {
 
   return (
     <>
-      <InfoStyled>
-        <p><b>2</b> incidentes selecionados</p>
-      </InfoStyled>
-
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  // indeterminate={numSelected > 0 && numSelected < rowCount}
-                  // checked={rowCount > 0 && numSelected === rowCount}
-                  // onChange={onSelectAllClick}
-                  inputProps={{ 'aria-label': 'select all desserts' }}
-                />
-              </TableCell>
               <TableCell>Modelo</TableCell>
               <TableCell>Descrição</TableCell>
               <TableCell>Prioridade</TableCell>

@@ -62,7 +62,6 @@ const IncidentsHistory = () => {
         message,
       }],
     };
-    debugger
 
     if (window.setState && window.setState.setLoading) {
       window.setState.setLoading(true);

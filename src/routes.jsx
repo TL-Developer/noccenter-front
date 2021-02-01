@@ -30,7 +30,8 @@ const ContainerStyled = styled.div`
   flex: 1;
   flex-direction: column;
   width: 100%;
-  margin: 0 ${({ margin, theme }) => margin ? theme.spacing.md : 0} 0 ${({ margin, theme }) => margin ? theme.spacing.md : 0};
+  margin: 0 ${({ margin, theme }) => margin ? theme.spacing.md : 0} 0 ${({ margin, theme }) => margin ? '110px' : 0};
+  /* margin: 0 ${({ margin, theme }) => margin ? theme.spacing.md : 0} 0 110px; */
   height: 100%;
 `;
 

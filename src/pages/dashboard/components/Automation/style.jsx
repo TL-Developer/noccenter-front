@@ -21,7 +21,7 @@ export const CardStyled = styled(Card)`
 
   && {
     margin-right: ${({ theme }) => theme.spacing.sm};
-    background: ${({ theme }) => theme.color.neutral.dark['1']};
+    background: ${({ theme }) => theme.color.neutral.dark['2']};
 
     &:last-child {
       margin-right: 0;
@@ -34,6 +34,8 @@ export const ContainerStyled = styled.div`
   flex-direction: column;
   align-items: center;
   color: ${({ theme }) => theme.color.neutral.light.pure};
+  cursor: pointer;
+  padding: ${({ theme }) => theme.spacing.md} 0;
 
   svg {
     color: ${({ theme }) => theme.color.neutral.light.pure};

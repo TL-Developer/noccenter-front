@@ -1,41 +1,54 @@
 import React from 'react';
 import Card from '@commons/components/Card';
 import FeatherIcon from '@commons/components/FeatherIcon';
+import { Link } from 'react-router-dom';
 
 import {
   TitleStyled,
   SectionStyled,
   CardStyled,
-  FeatherIconStyled,
   ContainerStyled,
 } from './style';
 
 const Automation = () => (
   <Card>
     <TitleStyled>
-      Automação
+      Operações
     </TitleStyled>
 
     <SectionStyled>
       <CardStyled>
-        <ContainerStyled>
-          <FeatherIcon icon="message-square" size="48" />
-          <p>
-            Criar modelo <br /> de <br /> automação
-          </p>
-        </ContainerStyled>
+        <Link to="/incidents">
+          <ContainerStyled>
+            <FeatherIcon icon="inbox" size="30" />
+            <p>
+              Gestão de <br /> incidentes
+            </p>
+          </ContainerStyled>
+        </Link>
       </CardStyled>
 
       <CardStyled>
-        <ContainerStyled>
-          <FeatherIcon icon="sliders" size="48" />
-          <p>
-            Visualizar <br /> Escalation
-          </p>
-        </ContainerStyled>
+        <Link to="/automation">
+          <ContainerStyled>
+            <FeatherIcon icon="cpu" size="30" />
+            <p>
+              Modelos de <br />automação
+            </p>
+          </ContainerStyled>
+        </Link>
       </CardStyled>
 
-      <CardStyled /> 
+      <CardStyled>
+        <Link to="/escalation">
+          <ContainerStyled>
+            <FeatherIcon icon="users" size="30" />
+            <p>
+              Visualizar <br />Escalation
+            </p>
+          </ContainerStyled>
+        </Link>
+      </CardStyled>
     </SectionStyled>
   </Card>
 );

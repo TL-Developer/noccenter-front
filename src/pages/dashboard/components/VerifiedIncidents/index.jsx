@@ -56,7 +56,7 @@ const VerifiedIncidents = () => {
 
       <ChartStyled>
         <canvas 
-          width="250"
+          width="230"
           className="App-canvas"
           ref={$canvas}
         /> 
